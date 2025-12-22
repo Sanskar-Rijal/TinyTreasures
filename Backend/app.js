@@ -1,5 +1,6 @@
 import express from "express";
 import morgan from "morgan";
+import productRouter from "./Routes/productRoute.js";
 
 const app = express();
 app.use(express.json());
@@ -17,6 +18,9 @@ if (process.env.NODE_ENV === "development") {
     });
   });
 }
+
+//our routes
+app.use("/api/v1/products", productRouter);
 
 // module.exports = app;
 // export default app;
