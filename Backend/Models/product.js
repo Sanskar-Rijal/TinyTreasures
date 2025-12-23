@@ -21,8 +21,8 @@ const productSchema = new mongoose.Schema(
       required: [true, "A product must have a description"],
       trim: true,
       maxLength: [
-        200,
-        "A product description must have less or equal then 200 characters ",
+        1000,
+        "A product description must have less or equal then 1000 characters ",
       ],
     },
     ratings: {

@@ -2,7 +2,6 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import { app } from "./app.js";
 
-
 dotenv.config({ path: "./config.env" });
 
 process.on("uncaughtException", (err) => {
@@ -27,13 +26,13 @@ mongoose
   });
 
 //Start the server
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8000;
 const server = app.listen(port, () => {
   console.log(`App running on port ${port}...`);
 });
 
 process.on("unhandledRejection", (err) => {
-  console.log("UNHANDLED REJECTION! Shutting down...");
+  console.log("UNHANDLED REJECTION! Shutting down...", err);
   server.close(() => {
     process.exit(1);
   });
