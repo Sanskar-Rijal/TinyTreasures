@@ -1,6 +1,7 @@
 import Product from "../Models/product.js";
 import catchAsync from "../utils/catchAsync.js";
 import AppError from "../utils/appError.js";
+import APIFeatures from "../utils/apiFeatures.js";
 
 //get all products
 const getProducts = catchAsync(async (req, res, next) => {
@@ -76,17 +77,20 @@ const deleteProductById = catchAsync(async (req, res, next) => {
 
 //Search product by name
 const searchProductByName = catchAsync(async (req, res, next) => {
-  const queryObj = { ...req.query };
-  const { name } = queryObj;
-  const products = await Product.find({ name: { $regex:`^${name}`, $options:"i" } });
-  if(!products){
-    return next(new AppError("No product found with that name",404));
+  const features = new APIFeatures(Product, req.query).search();
+  const products = await features.query;
+  const filteredProductsCount = products.length;
+
+  if (!products) {
+    return next(new AppError("No product found with that name", 404));
   }
   res.status(200).json({
-    status:"true",
-    message:products
-  })
-
+    status: "true",
+    message: {
+      filteredProductsCount,
+      products,
+    },
+  });
 });
 
 export {
