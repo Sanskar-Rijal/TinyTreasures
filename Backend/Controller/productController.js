@@ -5,11 +5,20 @@ import APIFeatures from "../utils/apiFeatures.js";
 
 //get all products
 const getProducts = catchAsync(async (req, res, next) => {
-  const products = await Product.find();
+  const features = new APIFeatures(Product.find(), req.query).search().filter();
+  const products = await features.query;
+  const filteredProductsCount = products.length;
+
+  if (!products) {
+    return next(new AppError("No product found !!", 404));
+  }
 
   res.status(200).json({
     status: "true",
-    message: products,
+    message: {
+      filteredProductsCount,
+      products,
+    },
   });
 });
 
@@ -75,24 +84,6 @@ const deleteProductById = catchAsync(async (req, res, next) => {
   });
 });
 
-//Search product by name
-const searchProductByName = catchAsync(async (req, res, next) => {
-  const features = new APIFeatures(Product, req.query).search();
-  const products = await features.query;
-  const filteredProductsCount = products.length;
-
-  if (!products) {
-    return next(new AppError("No product found with that name", 404));
-  }
-  res.status(200).json({
-    status: "true",
-    message: {
-      filteredProductsCount,
-      products,
-    },
-  });
-});
-
 export {
   getProducts,
   deleteProduct,
@@ -100,5 +91,4 @@ export {
   getProductById,
   updateProductById,
   deleteProductById,
-  searchProductByName,
 };

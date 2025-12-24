@@ -7,6 +7,8 @@ import AppError from "./utils/appError.js";
 const app = express();
 app.use(express.json());
 
+app.set("query parser", "extended");
+
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
   app.use((req, res, next) => {
