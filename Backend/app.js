@@ -1,6 +1,7 @@
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 import productRouter from "./Routes/productRoute.js";
 import globalErrorHandler from "./Controller/errorController.js";
 import AppError from "./utils/appError.js";
@@ -9,6 +10,7 @@ import userRouter from "./Routes/userRoute.js";
 const app = express();
 app.use(express.json());
 app.use(cors());
+app.use(cookieParser());
 
 app.set("query parser", "extended");
 
