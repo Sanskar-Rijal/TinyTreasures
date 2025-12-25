@@ -5,7 +5,10 @@ import APIFeatures from "../utils/apiFeatures.js";
 
 //get all products
 const getProducts = catchAsync(async (req, res, next) => {
-  const features = new APIFeatures(Product.find(), req.query).search().filter();
+  const features = new APIFeatures(Product.find(), req.query)
+    .search()
+    .filter()
+    .pagination();
   const products = await features.query;
   const filteredProductsCount = products.length;
 

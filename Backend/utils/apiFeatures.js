@@ -45,6 +45,19 @@ class APIFeatures {
     this.query = this.query.find(JSON.parse(queryStr));
     return this;
   }
+
+  pagination(){
+    const page = this.queryString.page * 1  || 1; //converting to number, default is 1 
+    const limit= this.queryString.limit *1 || 10;//Default is 10 items
+    const skip = (page-1)*limit;
+    //page=2&limit=10,
+    //euta page ma 10 wota dekhaune rey , so
+    //at page 1 we have already shown 10 results,(1-10)
+    //at page 2 we have to skip first 10 results(11-20)
+    //at page 3 we have to skip first 20 results (21-30) and so on....
+    this.query = this.query.skip(skip).limit(limit);
+    return this;
+  }
 }
 
 export default APIFeatures;
