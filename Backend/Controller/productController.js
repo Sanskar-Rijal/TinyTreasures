@@ -35,6 +35,10 @@ const deleteProduct = catchAsync(async (req, res, next) => {
 //create new Products
 const createNewProduct = catchAsync(async (req, res, next) => {
   // req.body = JSON.parse(req.body);
+
+  //getting user id from protect middleware
+  req.body.user = req.user._id;
+
   const newProduct = await Product.create(req.body);
 
   res.status(201).json({

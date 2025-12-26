@@ -110,4 +110,32 @@ const protect = catchAsync(async (req, res, next) => {
   next();
 });
 
-export { signup, login, protect };
+//Logout User
+const logout = catchAsync(async (req, res, next) => {
+  res.cookie("token", null, {
+    expires: new Date(Date.now()),
+    httpOnly: true,
+  });
+
+  res.status(200).json({
+    status: "success",
+    message: "Logged out successfully",
+  });
+});
+
+//role based authentication for routes,
+//we have to pass argument to the middleware in this case. i.e role
+//we create a wrapper function,which will return a middleware function that we want to create
+const restrictTo =
+  (...roles) =>
+  (req, res, next) => {
+    //roles is an array ["admin","lead-guide"]
+    if (!roles.includes(req.user.role)) {
+      return next(
+        new AppError("You do not have permission to perform this action", 403)
+      );
+    }
+    next();
+  };
+
+export { signup, login, protect, logout, restrictTo };

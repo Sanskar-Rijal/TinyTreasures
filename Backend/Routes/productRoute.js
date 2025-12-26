@@ -6,17 +6,20 @@ import {
   getProducts,
   updateProductById,
 } from "../Controller/productController.js";
-import { protect } from "../Controller/authController.js";
+import { protect, restrictTo } from "../Controller/authController.js";
 
 const router = Router();
 
-router.route("/").get(protect, getProducts).post(protect, createNewProduct);
+router
+  .route("/")
+  .get(protect, getProducts)
+  .post(protect, restrictTo("admin"), createNewProduct);
 
 //find by id route
 router
   .route("/:id")
   .get(protect, getProductById)
-  .put(protect, updateProductById)
-  .delete(protect, deleteProductById);
+  .put(protect, restrictTo("admin"), updateProductById)
+  .delete(protect, restrictTo("admin"), deleteProductById);
 
 export default router;
