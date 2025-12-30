@@ -3,7 +3,7 @@ import Button from "./Button";
 function Footer() {
   return (
     <footer className="mt-16 border-t border-gray-200">
-      <div className="container mx-auto px-4 py-12">
+      <div className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {/* 1st col */}
           <div>
