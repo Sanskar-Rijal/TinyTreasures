@@ -4,7 +4,7 @@ import Footer from "../ui/Footer";
 
 function AppLayout() {
   return (
-    <div>
+    <div className="min-h-screen bg-white">
       <Header />
       <main>
         <Outlet />
