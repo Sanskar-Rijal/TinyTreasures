@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Button from "../ui/Button";
+import ProductCard from "../ui/ProductCard";
 
 function HomePage() {
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -17,6 +18,27 @@ function HomePage() {
     "Sports",
     "Outdoor",
     "Home",
+  ];
+
+  const product = [
+    {
+      id: "abcd",
+      name: "Sanskar Rijal",
+      price: 19000,
+      description: "let it go let it go",
+      ratingsAverage: 5,
+      ratingsQuantity: 100,
+      images: [
+        {
+          public_id: "sample",
+          url: "https://i.imgur.com/sWodf8f.jpg",
+          id: "image1",
+        },
+      ],
+      category: "Category kunai xaina pro ho",
+      seller: "Samsung",
+      stock: 50,
+    },
   ];
 
   //handle click on category
@@ -53,6 +75,13 @@ function HomePage() {
         ))}
       </div>
       {/* Product section to be fetched from backend and display here */}
+      <div className="mb-8">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {product.map((item) => (
+            <ProductCard product={item} key={item.id} />
+          ))}
+        </div>
+      </div>
 
       {/* features Section */}
       <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
