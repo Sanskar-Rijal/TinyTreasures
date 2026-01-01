@@ -3,7 +3,10 @@ import Button from "../ui/Button";
 import Product from "../features/products/Product";
 import Features from "../ui/Features";
 import Banner from "../ui/Banner";
+
 function HomePage() {
+  //Setting title of our page
+
   const [selectedCategory, setSelectedCategory] = useState("All");
   const categories = [
     "All",

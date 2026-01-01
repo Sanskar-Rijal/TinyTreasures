@@ -20,8 +20,9 @@ const createSendToken = (user, statusCode, res) => {
     expires: new Date(
       Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
     ),
-    //  secure: true, //it will only send the cookie on https, in Production make this true
     httpOnly: true, //it will not allow the cookie to be accessed or modified by the browser
+    secure: process.env.NODE_ENV === "production", //only HTTPS in production
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", //required for cross-origin
   });
 
   //we don't want to send password back to the client so

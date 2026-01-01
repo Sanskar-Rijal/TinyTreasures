@@ -86,7 +86,7 @@ function Register() {
               size="lg"
               className="inline-flex w-full items-center justify-center gap-2 rounded-full text-sm font-medium transition-all focus:outline-none disabled:pointer-events-none disabled:opacity-50"
             >
-              Create Account
+              `` Create Account
             </Button>
           </form>
 

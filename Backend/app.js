@@ -11,7 +11,12 @@ import reviewRouter from "./Routes/reviewRoute.js";
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5173", // frontend URL
+    credentials: true,
+  })
+);
 app.use(cookieParser());
 
 app.set("query parser", "extended");

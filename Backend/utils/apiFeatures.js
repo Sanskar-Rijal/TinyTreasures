@@ -40,16 +40,16 @@ class APIFeatures {
     //adding $ using regular expression
     queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
 
-    console.log(JSON.parse(queryStr));
+    // console.log(JSON.parse(queryStr));
 
     this.query = this.query.find(JSON.parse(queryStr));
     return this;
   }
 
-  pagination(){
-    const page = this.queryString.page * 1  || 1; //converting to number, default is 1 
-    const limit= this.queryString.limit *1 || 10;//Default is 10 items
-    const skip = (page-1)*limit;
+  pagination() {
+    const page = this.queryString.page * 1 || 1; //converting to number, default is 1
+    const limit = this.queryString.limit * 1 || 10; //Default is 10 items
+    const skip = (page - 1) * limit;
     //page=2&limit=10,
     //euta page ma 10 wota dekhaune rey , so
     //at page 1 we have already shown 10 results,(1-10)

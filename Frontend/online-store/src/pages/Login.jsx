@@ -1,9 +1,19 @@
 import { Link } from "react-router-dom";
 import useMoveBack from "../hooks/useMoveBack";
 import Button from "../ui/Button";
+import useLogin from "../hooks/useLogin";
+import { useForm } from "react-hook-form";
 
 function Login() {
+  //custom hook to move back to previous page
   const moveBack = useMoveBack();
+  const { login, isPending } = useLogin();
+  const { register, handleSubmit } = useForm();
+
+  //function to handle onSubmit
+  function onSubmit(data) {
+    login(data); //{email and password}
+  }
 
   return (
     <div className="flex min-h-[80vh] items-center justify-center px-4 py-12">
@@ -19,7 +29,7 @@ function Login() {
         </div>
         {/* email, passwords  and input field */}
         <div className="mt-0 p-6">
-          <form className="space-y-4">
+          <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
             {/* email */}
             <div className="space-y-2">
               <label
@@ -29,6 +39,8 @@ function Login() {
                 Email
               </label>
               <input
+                {...register("email")}
+                id="email"
                 className="w-full rounded-xl border border-gray-200 bg-white px-2 py-2 text-gray-900 focus:ring-2 focus:ring-purple-400 focus:outline-none"
                 type="email"
                 required
@@ -52,6 +64,8 @@ function Login() {
                 </Link>
               </div>
               <input
+                {...register("password")}
+                id="password"
                 className="w-full rounded-xl border border-gray-200 bg-white px-2 py-2 text-gray-900 focus:ring-2 focus:ring-purple-400 focus:outline-none"
                 type="password"
                 required
@@ -59,6 +73,8 @@ function Login() {
               />
             </div>
             <Button
+              type="submit"
+              disabled={isPending}
               size="lg"
               className="inline-flex w-full items-center justify-center gap-2 rounded-full text-sm font-medium transition-all focus:outline-none disabled:pointer-events-none disabled:opacity-50"
             >
