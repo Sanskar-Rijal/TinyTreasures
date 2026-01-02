@@ -1,11 +1,11 @@
 import { FaRegHeart, FaRegUser, FaSearch } from "react-icons/fa";
-import { MdOutlineShoppingCart } from "react-icons/md";
 import { Link } from "react-router-dom";
 import Button from "./Button";
 import Badge from "./Badge";
 import { LuLogOut, LuShoppingCart } from "react-icons/lu";
 import { useSelector } from "react-redux";
 import useLogout from "../hooks/useLogout";
+import { STORE_NAME } from "../utils/Constants";
 
 function Header() {
   //getting total items in cart
@@ -31,10 +31,10 @@ function Header() {
             </div>
             {/* displaying name */}
             <span className="hidden text-2xl font-bold text-gray-900 sm:block">
-              PurpleStore
+              {STORE_NAME}
             </span>
             <span className="text-xl font-bold text-gray-900 sm:hidden">
-              PurpleStore
+              {STORE_NAME}
             </span>
           </Link>
           {/* Search Bar, which is hidden on mobile */}
@@ -52,7 +52,7 @@ function Header() {
           <div className="flex items-center gap-1">
             {/* fav */}
             <Button
-              className="inline-flex items-center justify-center gap-2 rounded-full text-sm font-medium transition-all focus:outline-none disabled:pointer-events-none disabled:opacity-50"
+              className="inline-flex items-center justify-center gap-2 rounded-lg text-sm font-medium transition-all focus:outline-none disabled:pointer-events-none disabled:opacity-50"
               variant="ghost"
               size="icon"
               to="/wishlist"

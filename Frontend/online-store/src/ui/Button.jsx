@@ -16,6 +16,7 @@ function Button({
   const variants = {
     default: "bg-purple-600 text-white hover:bg-purple-700",
     ghost: "text-gray-900 hover:bg-purple-200 hover:text-purple-700",
+    back: "text-gray-900 hover:bg-gray-100 ",
     like: "text-gray-900  hover:bg-white bg-white/80  ",
     link: "text-purple-600 underline-offset-4 hover:underline",
   };
@@ -23,7 +24,7 @@ function Button({
   const sizes = {
     default: "h-9 px-4 py-2",
     sm: "h-8 px-3",
-    lg: "h-10 px-6",
+    lg: "h-10 px-3",
     icon: "size-9",
   };
 

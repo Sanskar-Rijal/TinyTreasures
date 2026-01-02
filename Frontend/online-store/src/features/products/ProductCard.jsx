@@ -33,7 +33,7 @@ function ProductCard({ product }) {
 
   return (
     <Link
-      to="/productDetails"
+      to={`/productDetails/${product.id}`}
       className="group cursor-pointer overflow-hidden rounded-xl border border-gray-200 bg-white transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:shadow-purple-400/10"
     >
       {/* product image */}

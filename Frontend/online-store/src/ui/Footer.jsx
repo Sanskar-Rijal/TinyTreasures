@@ -1,3 +1,4 @@
+import { STORE_NAME } from "../utils/Constants";
 import Button from "./Button";
 
 function Footer() {
@@ -8,7 +9,7 @@ function Footer() {
           {/* 1st col */}
           <div>
             <h4 className="mb-4 font-semibold text-gray-900">
-              About PurpleStore
+              About {STORE_NAME}
             </h4>
             <p className="text-sm text-gray-600">
               Your trusted destination for the latest tech products at
