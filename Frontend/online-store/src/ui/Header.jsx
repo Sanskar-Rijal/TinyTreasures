@@ -52,7 +52,7 @@ function Header() {
           <div className="flex items-center gap-1">
             {/* fav */}
             <Button
-              className="inline-flex items-center justify-center gap-2 rounded-lg text-sm font-medium transition-all focus:outline-none disabled:pointer-events-none disabled:opacity-50"
+              className="inline-flex items-center justify-center gap-2 rounded-full text-sm font-medium transition-all focus:outline-none disabled:pointer-events-none disabled:opacity-50"
               variant="ghost"
               size="icon"
               to="/wishlist"

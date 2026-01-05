@@ -22,14 +22,26 @@ const cartSlice = createSlice({
   initialState: initialStateCart,
   reducers: {
     addToCart(state, action) {
-      //it basically means cart/addtoCart
-      state.orderItems.push(action.payload);
-      state.totalPrice = +action.payload.price * action.payload.quantity;
-      state.tax = (state.totalPrice * 0.13).toFixed(2);
-      if (state.totalPrice > 1500) {
-        state.shippingPrice = 0;
+      //if the items is already in cart and user clicks add to cart again then we must check it right?
+      const alreadyInCart = state.orderItems.find(
+        (item) => item.product === action.payload.product,
+      );
+
+      if (alreadyInCart) {
+        cartSlice.caseReducers.increaseItemQuantity(
+          state,
+          action.payload.product,
+        );
       } else {
-        state.shippingPrice = 120;
+        //it basically means cart/addtoCart
+        state.orderItems.push(action.payload);
+        state.totalPrice = +action.payload.price * action.payload.quantity;
+        state.tax = (state.totalPrice * 0.13).toFixed(2);
+        if (state.totalPrice > 1500) {
+          state.shippingPrice = 0;
+        } else {
+          state.shippingPrice = 120;
+        }
       }
     },
     removeItem(state, action) {
@@ -54,7 +66,7 @@ const cartSlice = createSlice({
     decreaseItemQuantity(state, action) {
       const productId = action.payload;
       const item = state.orderItems.find((item) => item.product === productId);
-      item.quantiy -= 1;
+      item.quantity -= 1;
       state.totalPrice = state.totalPrice - item.price * item.quantity;
       state.tax = (state.totalPrice * 0.13).toFixed(2);
       if (state.totalPrice > 1500) {
@@ -63,7 +75,7 @@ const cartSlice = createSlice({
         state.shippingPrice = 120;
       }
       if (item.quantity === 0) {
-        cartSlice.caseReducers.removeItem(state.action);
+        cartSlice.caseReducers.removeItem(state, action);
       }
     },
     clearCart(state) {

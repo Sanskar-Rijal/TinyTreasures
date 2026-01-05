@@ -18,7 +18,7 @@ router
 //find by id route
 router
   .route("/:id")
-  .get(protect, getProductById)
+  .get(getProductById)
   .put(protect, restrictTo("admin"), updateProductById)
   .delete(protect, restrictTo("admin"), deleteProductById);
 

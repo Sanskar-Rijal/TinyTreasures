@@ -19,6 +19,8 @@ function ProductCard({ product }) {
       quantity: 1,
       price: product.price,
       name: product.name,
+      category: product.category,
+      image: product.images[0].url,
     };
     event.preventDefault();
     event.stopPropagation();

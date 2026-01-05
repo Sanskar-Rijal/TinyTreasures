@@ -4,6 +4,7 @@ import { LuShoppingCart } from "react-icons/lu";
 import { useState } from "react";
 import Badge from "../../ui/Badge";
 import Button from "../../ui/Button";
+import QuantitySelector from "../../ui/QuantitySelector";
 
 function ProductDescription({ product }) {
   const [iswishlisted, setWishListed] = useState(false);
@@ -52,31 +53,13 @@ function ProductDescription({ product }) {
         <h3 className="mb-2 text-lg font-semibold text-gray-900 sm:text-xl">
           Description
         </h3>
-        <p className="leading-relaxed text-gray-600">
-          {product.description}
-        </p>
+        <p className="leading-relaxed text-gray-600">{product.description}</p>
       </div>
       {/* Quantity Selector */}
       <div className="mb-6">
         <h3 className="mb-3 text-lg text-gray-900 sm:text-xl">Quantity</h3>
         <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
-          <div className="flex items-center gap-2 rounded-lg border border-gray-300 px-2 py-1">
-            <Button
-              size="lg"
-              variant="back"
-              className="inline-flex items-center justify-center gap-2 rounded-full text-sm font-medium transition-all focus:outline-none disabled:pointer-events-none disabled:opacity-50"
-            >
-              <IoMdRemove className="h-5 w-5" />
-            </Button>
-            <span>2</span>
-            <Button
-              size="lg"
-              variant="back"
-              className="inline-flex items-center justify-center gap-2 rounded-full text-sm font-medium transition-all focus:outline-none disabled:pointer-events-none disabled:opacity-50"
-            >
-              <IoMdAdd className="h-5 w-5" />
-            </Button>
-          </div>
+          <QuantitySelector />
           <span className="text-gray-600">Total: Rs 15000</span>
         </div>
       </div>

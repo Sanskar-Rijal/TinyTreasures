@@ -24,7 +24,7 @@ function ProductDetail() {
   //Calling the api to get product details by id
   const { isPending, data } = useProductById({ id: productId });
 
-  const product = data?.message ?? [];
+  const product = data?.message ?? {};
 
   function handleReviewForm() {
     setShowReviewForm((prev) => !prev);
@@ -82,14 +82,14 @@ function ProductDetail() {
         {/* Show list of available reviews */}
 
         <div className="space-y-4">
-          {product.reviews.length === 0 ? (
+          {product?.reviews?.length === 0 ? (
             <div className="rounded-2xl border border-gray-200 bg-white/80">
               <p className="p-8 text-center text-lg text-gray-600 sm:text-xl">
                 No reviews yet. Be the first to review this product!
               </p>
             </div>
           ) : (
-            product.reviews.map((review) => (
+            product?.reviews?.map((review) => (
               <ReviewItem key={review.id} review={review} />
             ))
           )}
