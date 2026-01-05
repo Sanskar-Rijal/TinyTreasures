@@ -1,11 +1,32 @@
 import { Link } from "react-router-dom";
 import useMoveBack from "../hooks/useMoveBack";
 import Button from "../ui/Button";
+import { useForm } from "react-hook-form";
+import useRegister from "../hooks/useRegister";
+import Loader from "../ui/Loader";
+import toast from "react-hot-toast";
 
 function Register() {
+  const { isPending, signUp } = useRegister();
+  const { register, handleSubmit, getValues } = useForm();
   const moveBack = useMoveBack();
+
+  function onSubmit(data) {
+    const { name, email, password } = data;
+    console.log(data);
+    signUp({ name, email, password });
+  }
+
+  function onError(errors) {
+    const firstError = Object.values(errors)[0]?.message;
+    if (firstError) {
+      toast.error(firstError);
+    }
+  }
+
   return (
     <div className="flex min-h-[80vh] items-center justify-center px-4 py-12">
+      {isPending && <Loader />}
       <div className="w-full max-w-md rounded-2xl border border-gray-200 bg-white/80 p-4">
         {/* welcome login to you account  */}
         <div className="space-y-1 pb-3 text-center">
@@ -16,7 +37,10 @@ function Register() {
         </div>
         {/* full name,email, passwords  and input field */}
         <div className="mt-0 p-6">
-          <form className="space-y-4">
+          <form
+            className="space-y-4"
+            onSubmit={handleSubmit(onSubmit, onError)}
+          >
             {/* full name */}
             <div className="space-y-2">
               <label
@@ -26,6 +50,8 @@ function Register() {
                 Full Name
               </label>
               <input
+                id="name"
+                {...register("name")}
                 className="w-full rounded-xl border border-gray-200 bg-white px-2 py-2 text-gray-900 focus:ring-2 focus:ring-purple-400 focus:outline-none"
                 type="text"
                 required
@@ -42,6 +68,8 @@ function Register() {
               </label>
 
               <input
+                id="email"
+                {...register("email")}
                 className="w-full rounded-xl border border-gray-200 bg-white px-2 py-2 text-gray-900 focus:ring-2 focus:ring-purple-400 focus:outline-none"
                 type="email"
                 required
@@ -58,6 +86,8 @@ function Register() {
               </label>
 
               <input
+                id="password"
+                {...register("password")}
                 className="w-full rounded-xl border border-gray-200 bg-white px-2 py-2 text-gray-900 focus:ring-2 focus:ring-purple-400 focus:outline-none"
                 type="password"
                 required
@@ -75,6 +105,12 @@ function Register() {
               </label>
 
               <input
+                id="confirmPassword"
+                {...register("confirmPassword", {
+                  validate: (value) =>
+                    value === getValues().password ||
+                    "Password and confirm password should be same.",
+                })}
                 className="w-full rounded-xl border border-gray-200 bg-white px-2 py-2 text-gray-900 focus:ring-2 focus:ring-purple-400 focus:outline-none"
                 type="password"
                 required
@@ -83,6 +119,7 @@ function Register() {
             </div>
 
             <Button
+              type="submit"
               size="lg"
               className="inline-flex w-full items-center justify-center gap-2 rounded-full text-sm font-medium transition-all focus:outline-none disabled:pointer-events-none disabled:opacity-50"
             >

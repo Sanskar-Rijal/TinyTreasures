@@ -13,6 +13,7 @@ import { Toaster } from "react-hot-toast";
 import ForgotPassword from "./pages/ForgotPassword";
 import Register from "./pages/Register";
 import { useAuthSync } from "./hooks/useAuth";
+import Checkout from "./pages/Checkout";
 
 const router = createBrowserRouter([
   {
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
       {
         path: "/productDetails/:productId",
         element: <ProductDetail />,
+      },
+      {
+        path: "/order/checkout",
+        element: <Checkout />,
       },
     ],
   },
