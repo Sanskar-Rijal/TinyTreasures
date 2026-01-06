@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { STORE_NAME } from "../utils/Constants";
 import Button from "./Button";
 
@@ -20,9 +21,15 @@ function Footer() {
           <div>
             <h4 className="mb-4 font-semibold text-gray-900">Quick Links</h4>
             <ul className="space-y-2 text-sm text-gray-600">
-              <li>About us</li>
-              <li>Contact us</li>
-              <li>FAQs</li>
+              <li>
+                <Link to="/about">About us</Link>
+              </li>
+              <li>
+                <Link to="/contactUs">Contact us</Link>
+              </li>
+              <li>
+                <Link to="/frequentlyAskedQuestions">FAQs</Link>
+              </li>
               <li>Shipping info</li>
             </ul>
           </div>
@@ -58,7 +65,7 @@ function Footer() {
         </div>
         {/* copyright text */}
         <div className="mt-8 border-t border-gray-200 pt-8 text-center text-sm text-gray-600">
-          <p>&copy; 2024 PurpleStore. All rights reserved.</p>
+          <p>&copy; 2024 {STORE_NAME}. All rights reserved.</p>
         </div>
       </div>
     </footer>

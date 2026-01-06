@@ -14,6 +14,9 @@ import ForgotPassword from "./pages/ForgotPassword";
 import Register from "./pages/Register";
 import { useAuthSync } from "./hooks/useAuth";
 import Checkout from "./pages/Checkout";
+import About from "./pages/About";
+import ContactUs from "./pages/ContactUs";
+import FAQ from "./pages/FAQ";
 
 const router = createBrowserRouter([
   {
@@ -54,6 +57,18 @@ const router = createBrowserRouter([
       {
         path: "/order/checkout",
         element: <Checkout />,
+      },
+      {
+        path: "/about",
+        element: <About />,
+      },
+      {
+        path: "/contactUs",
+        element: <ContactUs />,
+      },
+      {
+        path: "/frequentlyAskedQuestions",
+        element: <FAQ />,
       },
     ],
   },
