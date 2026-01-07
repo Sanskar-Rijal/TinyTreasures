@@ -19,7 +19,7 @@ const getallProducts = catchAsync(async (req, res, next) => {
   const products = await features.query;
   const filteredProductsCount = totalProducts.length;
 
-  if (!products) {
+  if (products.length === 0) {
     return next(new AppError("No product found !!", 404));
   }
 

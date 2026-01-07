@@ -6,6 +6,7 @@ import { LuLogOut, LuShoppingCart } from "react-icons/lu";
 import { useSelector } from "react-redux";
 import useLogout from "../hooks/useLogout";
 import { STORE_NAME } from "../utils/Constants";
+import Search from "./Search";
 
 function Header() {
   //getting total items in cart
@@ -38,16 +39,7 @@ function Header() {
             </span>
           </Link>
           {/* Search Bar, which is hidden on mobile */}
-          <div className="mx-8 hidden max-w-md flex-1 md:flex">
-            <div className="relative w-full">
-              <FaSearch className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 transform text-gray-500" />
-              <input
-                className="w-full rounded-3xl border border-gray-200 bg-white py-2 pr-4 pl-10 text-gray-900 focus:ring-2 focus:ring-purple-400 focus:outline-none"
-                type="text"
-                placeholder="Search Products....."
-              />
-            </div>
-          </div>
+          <Search laptop={true} />
           {/* another div for fav and cart icons */}
           <div className="flex items-center gap-1">
             {/* fav */}
@@ -114,17 +106,7 @@ function Header() {
             )}
           </div>
         </div>
-        {/* mobile Search bar */}
-        <div className="mt-4 md:hidden">
-          <div className="relative w-full">
-            <FaSearch className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 transform text-gray-500" />
-            <input
-              className="w-full rounded-3xl border border-gray-200 bg-white py-2 pr-4 pl-10 text-gray-900 focus:ring-2 focus:ring-purple-400 focus:outline-none"
-              type="text"
-              placeholder="Search Products....."
-            />
-          </div>
-        </div>
+        <Search mobile={true} />
       </div>
     </header>
   );
