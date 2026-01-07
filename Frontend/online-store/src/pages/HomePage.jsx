@@ -1,13 +1,14 @@
-import { useState } from "react";
 import Button from "../ui/Button";
 import Product from "../features/products/Product";
 import Features from "../ui/Features";
 import Banner from "../ui/Banner";
+import { useSearchParams } from "react-router-dom";
 
 function HomePage() {
   //Setting title of our page
-
-  const [selectedCategory, setSelectedCategory] = useState("All");
+  //const [selectedCategory, setSelectedCategory] = useState("All");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const selectedCategory = searchParams.get("category") || "All";
   const categories = [
     "All",
     "Electronics",
@@ -24,32 +25,26 @@ function HomePage() {
     "Home",
   ];
 
-  // const product = [
-  //   {
-  //     id: "abcd",
-  //     name: "Sanskar Rijal",
-  //     price: 19000,
-  //     description: "let it go let it go",
-  //     ratingsAverage: 5,
-  //     ratingsQuantity: 100,
-  //     images: [
-  //       {
-  //         public_id: "sample",
-  //         url: "https://i.imgur.com/sWodf8f.jpg",
-  //         id: "image1",
-  //       },
-  //     ],
-  //     category: "Category kunai xaina pro ho",
-  //     seller: "Samsung",
-  //     stock: 50,
-  //   },
-  // ];
-
-  //React Query to fetch api
-
   //handle click on category
   function handleCategory(category) {
-    setSelectedCategory(category);
+    // const params = {};
+    // if (category !== "All") {
+    //   params.category = category;
+    // }
+    // params.page = 1; //reset the page
+    // setSearchParams(params);
+    setSearchParams((prev) => {
+      const params = Object.fromEntries(prev);
+
+      if (category === "All") {
+        delete params.category;
+      } else {
+        params.category = category;
+      }
+
+      params.page = 1; //reset the page when cagtegory changes
+      return params;
+    });
   }
 
   return (
@@ -74,7 +69,7 @@ function HomePage() {
       </div>
 
       {/* Product section to be fetched from backend and display here */}
-      <Product category={selectedCategory === "All" ? "" : selectedCategory} />
+      <Product />
       {/* features Section */}
       <Features />
     </div>

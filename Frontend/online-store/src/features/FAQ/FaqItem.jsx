@@ -1,3 +1,5 @@
+import { FiHelpCircle } from "react-icons/fi";
+
 function FaqItem({ faqs }) {
   return (
     <div className="rounded-lg border border-gray-200 bg-white/80 p-6">
