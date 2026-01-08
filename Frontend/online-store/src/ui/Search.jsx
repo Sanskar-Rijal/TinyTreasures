@@ -10,17 +10,17 @@ function Search({ laptop = false, mobile = false }) {
     event.preventDefault();
   }
 
-useEffect(() => {
-  const timer = setTimeout(() => {
-    if (keyword.trim()) {
-      navigate(`/?keyword=${keyword.trim()}`);
-    } else {
-      navigate(`/`);
-    }
-  }, 400); // delay in ms 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (keyword.trim()) {
+        navigate(`/?keyword=${keyword.trim()}`);
+      } else {
+        navigate(`/`);
+      }
+    }, 400); // delay in ms
 
-  return () => clearTimeout(timer); // cleanup
-}, [keyword, navigate]);
+    return () => clearTimeout(timer); // cleanup
+  }, [keyword, navigate]);
   return (
     <>
       {/* //for laptpo */}
