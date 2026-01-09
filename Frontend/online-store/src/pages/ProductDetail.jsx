@@ -13,7 +13,7 @@ import useProductById from "../hooks/useProductById";
 import Loader from "../ui/Loader";
 
 function ProductDetail() {
-  const isAuthenticated = useSelector((state) => state.user.isAuthenticatd);
+  const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
 
   //Show review Form
   const [showReviewForm, setShowReviewForm] = useState(false);
