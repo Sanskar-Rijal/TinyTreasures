@@ -11,7 +11,7 @@ function Product() {
   const category = searchParams.get("category") || "All";
   const page = Number(searchParams.get("page")) || 1;
   const keyword = searchParams.get("keyword") || "";
-  const limit = 10; // number of products per page
+  const limit = 12; // number of products per page
 
   const { isPending, data, error, isSuccess } = useQuery({
     queryKey: ["products", category, page, keyword],

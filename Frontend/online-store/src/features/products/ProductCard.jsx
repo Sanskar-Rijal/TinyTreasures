@@ -91,6 +91,7 @@ function ProductCard({ product }) {
             Rs {product.price.toFixed(2)}
           </span>
           <Button
+            disabled={!(product.stock > 0)}
             onClick={handleAddToCart}
             className="inline-flex cursor-pointer items-center justify-center rounded-full text-sm font-medium transition-all focus:outline-none disabled:pointer-events-none disabled:opacity-50"
           >

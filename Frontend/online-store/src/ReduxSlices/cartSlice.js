@@ -1,8 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
+import toast from "react-hot-toast";
 
 //just like redux we have to define initial state first
 const initialStateCart = {
   orderItems: [],
+  subTotal: 0,
   totalPrice: 0,
   tax: 0, //13% of total price
   shippingPrice: 0, //free shipping above rs 1500
@@ -17,6 +19,18 @@ orderItems:{
 }
 */
 
+//Helper function to calculate total Price
+function calculateTotalPrice(state) {
+  const total = state.orderItems.reduce(
+    (acc, item) => acc + item.price * item.quantity,
+    0,
+  );
+  state.totalPrice = total.toFixed(2);
+  state.tax = (state.totalPrice * 0.13).toFixed(2);
+  state.subTotal = (state.totalPrice - state.tax).toFixed(2);
+  state.shippingPrice = state.totalPrice > 1500 ? 0 : 120;
+}
+
 const cartSlice = createSlice({
   name: "cart",
   initialState: initialStateCart,
@@ -28,21 +42,13 @@ const cartSlice = createSlice({
       );
 
       if (alreadyInCart) {
-        cartSlice.caseReducers.increaseItemQuantity(
-          state,
-          action.payload.product,
-        );
+        //if already in cart then we just increase the quantity
+        alreadyInCart.quantity += action.payload.quantity;
       } else {
         //it basically means cart/addtoCart
         state.orderItems.push(action.payload);
-        state.totalPrice = +action.payload.price * action.payload.quantity;
-        state.tax = (state.totalPrice * 0.13).toFixed(2);
-        if (state.totalPrice > 1500) {
-          state.shippingPrice = 0;
-        } else {
-          state.shippingPrice = 120;
-        }
       }
+      calculateTotalPrice(state);
     },
     removeItem(state, action) {
       //we pass here id of the product to be removed
@@ -50,36 +56,40 @@ const cartSlice = createSlice({
       state.orderItems = state.orderItems.filter(
         (item) => item.product !== productId,
       );
+      calculateTotalPrice(state);
     },
     increaseItemQuantity(state, action) {
       const productId = action.payload;
       const item = state.orderItems.find((item) => item.product === productId);
-      item.quantity += 1;
-      state.totalPrice = state.totalPrice + item.price * item.quantity;
-      state.tax = (state.totalPrice * 0.13).toFixed(2);
-      if (state.totalPrice > 1500) {
-        state.shippingPrice = 0;
-      } else {
-        state.shippingPrice = 120;
+      if (item) {
+        item.quantity += 1;
+        calculateTotalPrice(state);
+      }else{
+
+        toast.error("Add items to cart first, to increase quantity");
       }
     },
     decreaseItemQuantity(state, action) {
       const productId = action.payload;
       const item = state.orderItems.find((item) => item.product === productId);
+      if (!item) {
+        toast.error("Add items to cart first, to decrease quantity");
+        return;
+      }
       item.quantity -= 1;
-      state.totalPrice = state.totalPrice - item.price * item.quantity;
-      state.tax = (state.totalPrice * 0.13).toFixed(2);
-      if (state.totalPrice > 1500) {
-        state.shippingPrice = 0;
-      } else {
-        state.shippingPrice = 120;
+      if (item.quantity == 0) {
+        //remove item from cart
+        state.orderItems = state.orderItems.filter(
+          (item) => item.product !== productId,
+        );
       }
-      if (item.quantity === 0) {
-        cartSlice.caseReducers.removeItem(state, action);
-      }
+      calculateTotalPrice(state);
     },
     clearCart(state) {
       state.orderItems = [];
+      state.totalPrice = 0;
+      state.tax = 0;
+      state.shippingPrice = 0;
     },
   },
 });

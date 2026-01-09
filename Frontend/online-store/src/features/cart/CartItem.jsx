@@ -1,8 +1,16 @@
 import { FiTrash } from "react-icons/fi";
 import Button from "../../ui/Button";
 import QuantitySelector from "../../ui/QuantitySelector";
+import { useDispatch } from "react-redux";
+import { removeItem } from "../../ReduxSlices/cartSlice";
 
 function CartItem({ item }) {
+  const dispatch = useDispatch();
+
+  function handleDelete() {
+    dispatch(removeItem(item.product));
+  }
+
   return (
     <div
       key={item.product}
@@ -26,7 +34,10 @@ function CartItem({ item }) {
               {/* Increase or Decrease Quantity */}
               <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
                 <div className="self-start">
-                  <QuantitySelector />
+                  <QuantitySelector
+                    product={item.product}
+                    quantity={item.quantity}
+                  />
                 </div>
 
                 <div className="flex w-full items-center justify-between gap-3 sm:justify-end">
@@ -38,7 +49,9 @@ function CartItem({ item }) {
                       {item.price.toFixed(2)} each
                     </p>
                   </div>
+                  {/* Delete Product  */}
                   <Button
+                    onClick={handleDelete}
                     size="lg"
                     className="inline-flex items-center justify-center gap-2 rounded-full text-sm font-medium text-red-600 transition-all hover:bg-red-50 hover:text-red-700 focus:outline-none disabled:pointer-events-none disabled:opacity-50"
                     variant="ghost"

@@ -5,13 +5,34 @@ import { useState } from "react";
 import Badge from "../../ui/Badge";
 import Button from "../../ui/Button";
 import QuantitySelector from "../../ui/QuantitySelector";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../../ReduxSlices/cartSlice";
 
 function ProductDescription({ product }) {
   const [iswishlisted, setWishListed] = useState(false);
+  const dispatch = useDispatch();
+  const ProductQuantity = useSelector(
+    (state) =>
+      state.cart.orderItems.find((item) => item.product === product.id)
+        ?.quantity || 0,
+  );
+
   function handleWishList(e) {
     e.preventDefault();
     e.stopPropagation();
     setWishListed((prev) => !prev);
+  }
+
+  function handleAddToCart() {
+    const productItem = {
+      product: product.id,
+      quantity: 1,
+      price: product.price,
+      name: product.name,
+      category: product.category,
+      image: product.images[0].url,
+    };
+    dispatch(addToCart(productItem));
   }
 
   return (
@@ -59,13 +80,14 @@ function ProductDescription({ product }) {
       <div className="mb-6">
         <h3 className="mb-3 text-lg text-gray-900 sm:text-xl">Quantity</h3>
         <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
-          <QuantitySelector />
+          <QuantitySelector quantity={ProductQuantity} product={product.id} />
           <span className="text-gray-600">Total: Rs 15000</span>
         </div>
       </div>
       {/* Add to cart button or wishlist */}
       <div className="flex flex-row gap-4">
         <Button
+          onClick={handleAddToCart}
           disabled={!(product.stock > 0)}
           size="lg"
           className="inline-flex w-full items-center justify-center gap-2 rounded-full text-sm font-medium transition-all focus:outline-none disabled:pointer-events-none disabled:opacity-50"
