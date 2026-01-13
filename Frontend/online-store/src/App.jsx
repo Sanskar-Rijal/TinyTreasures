@@ -20,6 +20,7 @@ import ShippingInfo from "./pages/ShippingInfo";
 import Returns from "./pages/Returns";
 import Help from "./pages/Help";
 import TermsAndConditions from "./pages/TermsAndConditions";
+import EditUser from "./pages/EditUser";
 
 const router = createBrowserRouter([
   {
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
       {
         path: "/userProfile",
         element: <UserProfile />,
+      },
+      {
+        path: "/userProfile/editProfile",
+        element: <EditUser />,
       },
       {
         path: "/productDetails/:productId",

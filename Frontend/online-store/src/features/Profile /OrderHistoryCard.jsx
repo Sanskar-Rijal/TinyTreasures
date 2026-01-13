@@ -4,7 +4,7 @@ function OrderHistoryCard() {
   return (
     <div className="rounded-lg border border-gray-200 bg-white/80">
       <div className="p-6 pb-4">
-        <div className="mb-10 flex items-center justify-center gap-4">
+        <div className="mb-10 flex items-center gap-4">
           <PiPackage className="h-5 w-5 text-purple-600" />
           <h3 className="text-lg font-semibold text-gray-900 md:text-xl">
             Order History

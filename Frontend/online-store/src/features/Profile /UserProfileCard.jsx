@@ -3,13 +3,13 @@ import { useSelector } from "react-redux";
 import Button from "../../ui/Button";
 
 function UserProfileCard() {
-  const name = useSelector((state) => state?.user?.user?.name);
-  const email = useSelector((state) => state?.user?.user?.email);
+  const name = useSelector((state) => state?.user?.user?.name ?? "");
+  const email = useSelector((state) => state?.user?.user?.email ?? "");
   return (
     <div className="rounded-lg border border-gray-200 bg-white/80">
       <div className="p-6 pb-4">
         {/* iconn and profile info header  */}
-        <div className="mb-10 flex items-center justify-center gap-4">
+        <div className="mb-10 flex items-center gap-4">
           <FaRegUser className="h-5 w-5 text-purple-600" />
           <h3 className="text-lg font-semibold text-gray-900 md:text-xl">
             Profile Information
@@ -28,6 +28,7 @@ function UserProfileCard() {
         </div>
         {/* Button to edit profile  */}
         <Button
+          to="/userProfile/editProfile"
           size="lg"
           variant="back"
           className="inline-flex w-full items-center justify-center rounded-lg border border-gray-300 text-sm font-medium backdrop-blur transition-all focus:outline-none disabled:pointer-events-none disabled:opacity-50"

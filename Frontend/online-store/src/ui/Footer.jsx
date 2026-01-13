@@ -83,6 +83,7 @@ function Footer() {
             <form onSubmit={handleSubmit}>
               <div className="flex flex-col gap-3 sm:flex-row">
                 <input
+                  required
                   value={email}
                   onChange={(event) => setEmail(event.target.value)}
                   className="flex-1 rounded-full border border-gray-300 bg-white px-3 py-2 text-gray-900 focus:ring-2 focus:ring-purple-500 focus:outline-none"
