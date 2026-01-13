@@ -4,7 +4,6 @@ import AppLayout from "./pages/AppLayout";
 import Cart from "./pages/Cart";
 import WishList from "./pages/WishList";
 import Login from "./pages/Login";
-
 import UserProfile from "./pages/UserProfile";
 import ProductDetail from "./pages/ProductDetail";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -19,6 +18,8 @@ import ContactUs from "./pages/ContactUs";
 import FAQ from "./pages/FAQ";
 import ShippingInfo from "./pages/ShippingInfo";
 import Returns from "./pages/Returns";
+import Help from "./pages/Help";
+import TermsAndConditions from "./pages/TermsAndConditions";
 
 const router = createBrowserRouter([
   {
@@ -79,6 +80,14 @@ const router = createBrowserRouter([
       {
         path: "/returns",
         element: <Returns />,
+      },
+      {
+        path: "/help/customer",
+        element: <Help />,
+      },
+      {
+        path: "/termsAndConditions",
+        element: <TermsAndConditions />,
       },
     ],
   },
