@@ -39,7 +39,9 @@ function Footer() {
                   FAQs
                 </Link>
               </li>
-              <li>Shipping info</li>
+              <li>
+                <Link to="/shippingInfo">Shipping info</Link>
+              </li>
             </ul>
           </div>
           {/* 3rd col */}
@@ -49,7 +51,9 @@ function Footer() {
             </h4>
             <ul className="space-y-2 text-sm text-gray-600">
               <li>Returns</li>
-              <li>Track Order</li>
+              <li>
+                <Link to="/userProfile">Track Order</Link>
+              </li>
               <li>Privacy Policy</li>
               <li>Terms & Conditions</li>
             </ul>
