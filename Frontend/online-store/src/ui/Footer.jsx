@@ -50,7 +50,11 @@ function Footer() {
               Customer Service
             </h4>
             <ul className="space-y-2 text-sm text-gray-600">
-              <li>Returns</li>
+              <li>
+                <Link to="/returns">
+                Returns
+                </Link>
+                </li>
               <li>
                 <Link to="/userProfile">Track Order</Link>
               </li>

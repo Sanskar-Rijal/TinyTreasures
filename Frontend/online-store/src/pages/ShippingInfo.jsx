@@ -4,7 +4,7 @@ import { FaClock, FaSearch, FaTruck } from "react-icons/fa";
 function ShippingInfo() {
   return (
     <div className="container mx-auto px-4 py-8">
-      <BackToXyz label="Back to Home" />
+      <BackToXyz label="Move Back" />
 
       <h1 className="mb-8 text-xl font-semibold text-gray-900 sm:text-2xl md:text-3xl">
         Shipping Information

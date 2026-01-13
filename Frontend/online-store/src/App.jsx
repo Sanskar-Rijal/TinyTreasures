@@ -18,6 +18,7 @@ import About from "./pages/About";
 import ContactUs from "./pages/ContactUs";
 import FAQ from "./pages/FAQ";
 import ShippingInfo from "./pages/ShippingInfo";
+import Returns from "./pages/Returns";
 
 const router = createBrowserRouter([
   {
@@ -74,6 +75,10 @@ const router = createBrowserRouter([
       {
         path: "/shippingInfo",
         element: <ShippingInfo />,
+      },
+      {
+        path: "/returns",
+        element: <Returns />,
       },
     ],
   },
