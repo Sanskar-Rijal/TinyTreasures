@@ -4,7 +4,6 @@ import Button from "./Button";
 import Badge from "./Badge";
 import { LuLogOut, LuShoppingCart } from "react-icons/lu";
 import { useSelector } from "react-redux";
-import useLogout from "../hooks/useLogout";
 import { STORE_NAME } from "../utils/Constants";
 import Search from "./Search";
 
@@ -17,8 +16,8 @@ function Header() {
   //getting userdetails
   const user = useSelector((state) => state.user.user); //state.user means userSlice ani initial state ma user xa ni ho last ko .user vaneko tyo ho
 
-  //custom hook to logout user
-  const { logout, isPending: isLoggingOut } = useLogout();
+  // //custom hook to logout user
+  // const { logout, isPending: isLoggingOut } = useLogout();
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white/80 backdrop-blur supports-backdrop-filter:bg-white/60">
@@ -87,14 +86,14 @@ function Header() {
                   </span>
                 </Button>
 
-                {/* logout Button */}
+                {/* logout Button
                 <Button
                   disabled={isLoggingOut}
                   className="inline-flex items-center justify-center gap-2 rounded-full text-sm font-medium transition-all focus:outline-none disabled:pointer-events-none disabled:opacity-50"
                   onClick={logout}
                 >
                   <LuLogOut className="h-5 w-5" />
-                </Button>
+                </Button> */}
               </>
             ) : (
               <Button
