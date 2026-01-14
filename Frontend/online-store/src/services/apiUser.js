@@ -4,6 +4,8 @@ import {
   LOGIN_USER,
   LOGOUT_USER,
   RESITER_USER,
+  UPDATE_PASSWORD,
+  UPDATE_PROFILE,
 } from "../utils/Constants";
 
 //Register user
@@ -66,6 +68,41 @@ export async function getMyDetails() {
   });
   if (!response.ok) {
     throw new Error("Failed to fetch user details");
+  }
+  const data = await response.json();
+  return data;
+}
+
+//update user details
+export async function updateProfile(details) {
+  const response = await fetch(`${BASE_URL}${UPDATE_PROFILE}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+    body: JSON.stringify(details),
+  });
+  if (!response.ok) {
+    throw new Error("Failed to udate profile");
+  }
+  const data = await response.json();
+  return data;
+}
+
+//update user password
+export async function updatePassword(passwords) {
+  const response = await fetch(`${BASE_URL}${UPDATE_PASSWORD}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+    body: JSON.stringify(passwords),
+  });
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message || "Failed to update password");
   }
   const data = await response.json();
   return data;

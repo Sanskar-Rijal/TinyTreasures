@@ -1,13 +1,32 @@
 import { LuLock } from "react-icons/lu";
 import Button from "../../ui/Button";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import useUpdatePassword from "../../hooks/useUpdatePassword";
+import Loader from "../../ui/Loader";
 
 function ChangePassword({ showPasswordForm, handleClick }) {
-  function handlePassword(event) {
-    event.preventDefault();
+  const { register, handleSubmit, getValues } = useForm();
+  const { updatePass, isPending: isUpdatingPassword } = useUpdatePassword();
+
+  function handlePassword(data) {
+    const finalPassword = {
+      currentPassword: data.currentPassword,
+      newPassword: data.newPassword,
+    };
+    updatePass(finalPassword);
+  }
+
+  function onError(errors) {
+    const firstError = Object.values(errors)[0]?.message;
+    if (firstError) {
+      toast.error(firstError);
+    }
   }
 
   return (
     <div className="rounded-lg border border-gray-200 bg-white/80 p-6">
+      {isUpdatingPassword && <Loader />}
       <div className="flex flex-col justify-center gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-center gap-4">
           <LuLock className="h-5 w-5 text-purple-600" />
@@ -26,20 +45,21 @@ function ChangePassword({ showPasswordForm, handleClick }) {
         )}
       </div>
       {showPasswordForm && (
-        <form onSubmit={handlePassword}>
+        <form onSubmit={handleSubmit(handlePassword, onError)}>
           <div className="mt-10 space-y-4">
             {/* current password */}
             <div>
               <label
                 className="mb-2 block font-semibold text-gray-900"
-                htmlFor="currentpassword"
+                htmlFor="currentPassword"
               >
                 Current Password
               </label>
               <input
+                {...register("currentPassword")}
                 required
                 className="w-full rounded-xl border border-gray-200 bg-white px-2 py-2 text-gray-900 focus:ring-2 focus:ring-purple-400 focus:outline-none"
-                id="currentpassword"
+                id="currentPassword"
                 type="password"
               />
             </div>
@@ -47,14 +67,15 @@ function ChangePassword({ showPasswordForm, handleClick }) {
             <div>
               <label
                 className="mb-2 block font-semibold text-gray-900"
-                htmlFor="newpassword"
+                htmlFor="newPassword"
               >
                 New Password
               </label>
               <input
+                {...register("newPassword")}
                 required
                 className="w-full rounded-xl border border-gray-200 bg-white px-2 py-2 text-gray-900 focus:ring-2 focus:ring-purple-400 focus:outline-none"
-                id="newpassword"
+                id="newPassword"
                 type="password"
               />
             </div>
@@ -62,14 +83,19 @@ function ChangePassword({ showPasswordForm, handleClick }) {
             <div>
               <label
                 className="mb-2 block font-semibold text-gray-900"
-                htmlFor="confirmpassword"
+                htmlFor="confirmPassword"
               >
                 Confirm Password
               </label>
               <input
+                {...register("confirmPassword", {
+                  validate: (value) =>
+                    value === getValues().newPassword ||
+                    "New password and confirm password must be same.",
+                })}
                 required
                 className="w-full rounded-xl border border-gray-200 bg-white px-2 py-2 text-gray-900 focus:ring-2 focus:ring-purple-400 focus:outline-none"
-                id="confirmpassword"
+                id="confirmPassword"
                 type="password"
               />
             </div>

@@ -163,7 +163,6 @@ const updatePassword = catchAsync(async (req, res, next) => {
 
   //3)If reached here, everything is fine, so simply update the password
   user.password = req.body.newPassword;
-  console.log(user.password);
 
   //we have to user user.save() here instead of findByIdAndUpdate because
   //findByIdAndUpdate doesn't run the pre save middleware in usermodel
