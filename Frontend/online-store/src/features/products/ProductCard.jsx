@@ -3,14 +3,22 @@ import Button from "../../ui/Button";
 import { FaRegHeart, FaHeart, FaRegStar, FaStar } from "react-icons/fa";
 import { useState } from "react";
 import Badge from "../../ui/Badge";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../ReduxSlices/cartSlice";
+import { addToWish, removeFromWish } from "../../ReduxSlices/wishSlice";
 
 function ProductCard({ product }) {
-  const [iswishlisted, setWishListed] = useState(false);
+  let [iswishlisted, setWishListed] = useState(false);
 
   //using dispatch function to add to cart
   const dispatch = useDispatch();
+
+  //check whether product is in wishlist or not
+  iswishlisted = useSelector((state) =>
+    state.wish.wishItems.find((item) => item.id === product.id),
+  )
+    ? true
+    : false;
 
   //handle addTo cart
   function handleAddToCart(event) {
@@ -30,6 +38,13 @@ function ProductCard({ product }) {
   function handleWishList(e) {
     e.preventDefault();
     e.stopPropagation();
+    if (!iswishlisted) {
+      //if true then add to wishlist
+      dispatch(addToWish(product));
+    } else {
+      //remove from wishlist
+      dispatch(removeFromWish(product.id));
+    }
     setWishListed((prev) => !prev);
   }
 

@@ -7,9 +7,10 @@ import Button from "../../ui/Button";
 import QuantitySelector from "../../ui/QuantitySelector";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../ReduxSlices/cartSlice";
+import { addToWish, removeFromWish } from "../../ReduxSlices/wishSlice";
 
 function ProductDescription({ product }) {
-  const [iswishlisted, setWishListed] = useState(false);
+  let [iswishlisted, setWishListed] = useState(false);
   const dispatch = useDispatch();
   const ProductQuantity = useSelector(
     (state) =>
@@ -17,9 +18,23 @@ function ProductDescription({ product }) {
         ?.quantity || 0,
   );
 
+  //check whether product is in wishlist or not
+  iswishlisted = useSelector((state) =>
+    state.wish.wishItems.find((item) => item.id === product.id),
+  )
+    ? true
+    : false;
+
   function handleWishList(e) {
     e.preventDefault();
     e.stopPropagation();
+    if (!iswishlisted) {
+      //if true then add to wishlist
+      dispatch(addToWish(product));
+    } else {
+      //remove from wishlist
+      dispatch(removeFromWish(product.id));
+    }
     setWishListed((prev) => !prev);
   }
 

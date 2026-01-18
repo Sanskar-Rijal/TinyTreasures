@@ -13,6 +13,11 @@ function Header() {
     state.cart.orderItems.reduce((acc, item) => acc + item.quantity, 0),
   );
 
+  //getting total items in wishlist
+  const totalItemsInWishlist = useSelector(
+    (state) => state.wish.wishItems.length,
+  );
+
   //getting userdetails
   const user = useSelector((state) => state.user.user); //state.user means userSlice ani initial state ma user xa ni ho last ko .user vaneko tyo ho
 
@@ -43,12 +48,17 @@ function Header() {
           <div className="flex items-center gap-1">
             {/* fav */}
             <Button
-              className="inline-flex items-center justify-center gap-2 rounded-full text-sm font-medium transition-all focus:outline-none disabled:pointer-events-none disabled:opacity-50"
+              className="relative inline-flex items-center justify-center gap-2 rounded-full text-sm font-medium transition-all focus:outline-none disabled:pointer-events-none disabled:opacity-50"
               variant="ghost"
               size="icon"
               to="/wishlist"
             >
               <FaRegHeart className="h-5 w-4" />
+              {totalItemsInWishlist > 0 && (
+                <Badge className="absolute -top-1 -right-2 flex h-5 w-5 items-center justify-center border-0 bg-purple-600 text-sm text-white">
+                  {totalItemsInWishlist > 99 ? "99+" : totalItemsInWishlist}
+                </Badge>
+              )}
             </Button>
             <Button
               className="relative inline-flex items-center justify-center gap-2 rounded-full text-sm font-medium transition-all focus:outline-none disabled:pointer-events-none disabled:opacity-50"
