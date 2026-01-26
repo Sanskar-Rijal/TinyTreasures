@@ -14,7 +14,9 @@ import {
   getAllUsers,
   getMe,
   getUserbyId,
+  resizeUserPhoto,
   updateProfile,
+  uploadUserPhoto,
 } from "../Controller/userController.js";
 
 const router = express.Router();
@@ -35,7 +37,13 @@ router.post("/resetPassword/:token", resetPassword);
 //get own profile
 router.get("/getMe", protect, getMe);
 //updaet userProfile
-router.patch("/updateProfile", protect, updateProfile);
+router.patch(
+  "/updateProfile",
+  protect,
+  uploadUserPhoto,
+  resizeUserPhoto,
+  updateProfile,
+);
 
 //ADMIN ROUTES
 //get all users

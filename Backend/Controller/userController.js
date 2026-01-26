@@ -31,34 +31,38 @@ const resizeUserPhoto = catchAsync(async (req, res, next) => {
 
   //Resize the image using sharp before uploading to cloudinary
   const buffer = await sharp(req.file.buffer)
-  .resize({width:500,height:500},{
-    fit:sharp.fit.cover, 
-    position:sharp.strategy.entropy
-  })
-  .toFormat("jpeg")
-  .jpeg({quality:90})
-  .toBuffer();
+    .resize(
+      { width: 500, height: 500 },
+      {
+        fit: sharp.fit.cover,
+        position: sharp.strategy.entropy,
+      },
+    )
+    .toFormat("jpeg")
+    .jpeg({ quality: 90 })
+    .toBuffer();
 
- //now we will upload to cloudinary 
- const stream = cloudinary.uploader.upload_stream(
-  {
-    folder:"avatars",
-    public_id:`user-${req.user.id}-${Date.now()}`,
-    resource_type:"image"
-  },(error,result)=>{
-    //Cloudinary lae basically k garxa vane ni haina image upload garxa ani hami lai chai ni,
-    //url dinxa k tyo image ko, ho tyo url chai hami database ma rakhna parne hunxa
-    if(error){
-      return next(new AppError("Error uploading image to Cloudinary",500));
-    }
-    //We will store the secure Url in req.file.cloudinaryAvatar
-    req.file.cloudinaryAvatar = result.secure_url;
-    req.file.public_id = result.public_id;
-    next();
-  }
- ) 
- //Sending the data to cloudinary via stream 
- stream.end(buffer);
+  //now we will upload to cloudinary
+  const stream = cloudinary.uploader.upload_stream(
+    {
+      folder: "avatars",
+      public_id: `user-${req.user.id}-${Date.now()}`,
+      resource_type: "image",
+    },
+    (error, result) => {
+      //Cloudinary lae basically k garxa vane ni haina image upload garxa ani hami lai chai ni,
+      //url dinxa k tyo image ko, ho tyo url chai hami database ma rakhna parne hunxa
+      if (error) {
+        return next(new AppError("Error uploading image to Cloudinary", 500));
+      }
+      //We will store the secure Url in req.file.cloudinaryAvatar
+      req.file.cloudinaryAvatar = result.secure_url;
+      req.file.public_id = result.public_id;
+      next();
+    },
+  );
+  //Sending the data to cloudinary via stream
+  stream.end(buffer);
 });
 
 //get myself
@@ -83,10 +87,10 @@ const updateProfile = catchAsync(async (req, res, next) => {
   };
 
   //4)if user uploaded photo then we will add that to the updatedData
-  if(req.file && req.file.cloudinaryAvatar){
-    updatedData.avatar ={
-      public_id:req.file.public_id,
-      url:req.file.cloudinaryAvatar
+  if (req.file && req.file.cloudinaryAvatar) {
+    updatedData.avatar = {
+      public_id: req.file.public_id,
+      url: req.file.cloudinaryAvatar,
     };
   }
 
@@ -168,4 +172,6 @@ export {
   getUserbyId,
   updateUser,
   deleteUser,
+  uploadUserPhoto,
+  resizeUserPhoto,
 };
