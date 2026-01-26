@@ -1,0 +1,12 @@
+services:
+  frontend:
+    build: ./Frontend
+    ports:
+      - 5173:5173
+
+  backend:
+    build: ./Backend
+    ports:
+      - 3000:3000
+    env_file:
+      - ./Backend/config.env
