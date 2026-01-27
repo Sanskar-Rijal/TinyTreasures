@@ -82,16 +82,30 @@ function Header() {
                   to="/userProfile"
                   className="inline-flex items-center justify-center gap-3 rounded-full text-sm font-medium transition-all focus:outline-none disabled:pointer-events-none disabled:opacity-50 md:hidden"
                 >
-                  <FaRegUser className="h-5 w-5" />
+                  {/* <FaRegUser className="h-5 w-5" /> */}
+                  <div className="h-7 w-7 overflow-hidden rounded-full">
+                    <img
+                      src={user.avatar.url}
+                      alt="Profile"
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
                 </Button>
                 {/* for desktop view */}
                 <Button
                   variant="ghost"
                   to="/userProfile"
-                  className="hidden items-center justify-center gap-3 rounded-full text-sm font-medium transition-all focus:outline-none disabled:pointer-events-none disabled:opacity-50 md:inline-flex"
+                  className="hidden items-center justify-center gap-3 rounded-full text-sm font-medium transition-all duration-300 focus:outline-none disabled:pointer-events-none disabled:opacity-50 md:inline-flex"
                 >
-                  <FaRegUser className="h-5 w-5" />
-                  <span className="max-w-[100px] truncate">
+                  {/* <FaRegUser className="h-5 w-5" /> */}
+                  <div className="h-7 w-7 overflow-hidden rounded-full">
+                    <img
+                      src={user.avatar.url}
+                      alt="Profile"
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                  <span className="max-w-[100px] truncate font-bold">
                     {user.name.split(" ")[0]}
                   </span>
                 </Button>

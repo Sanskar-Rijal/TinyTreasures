@@ -77,11 +77,8 @@ export async function getMyDetails() {
 export async function updateProfile(details) {
   const response = await fetch(`${BASE_URL}${UPDATE_PROFILE}`, {
     method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-    },
     credentials: "include",
-    body: JSON.stringify(details),
+    body: details, //sending formData directly
   });
   if (!response.ok) {
     throw new Error("Failed to udate profile");

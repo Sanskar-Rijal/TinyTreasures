@@ -3,10 +3,19 @@ services:
     build: ./Frontend
     ports:
       - 5173:5173
-
+    volumes:
+      # for development, it create live sync for my code without rebuilding
+      - ./Frontend:/usr/src/app # link .(my current project) to(:) (/usr/src/app) of the container
+      # it will ignore the live sync for node_modules
+      - /usr/src/app/node_modules
   backend:
     build: ./Backend
     ports:
       - 3000:3000
     env_file:
       - ./Backend/config.env
+    volumes:
+      # for development, it create live sync for my code without rebuilding
+      - ./Backend:/usr/src/app # link .(my current project) to(:) (/usr/src/app) of the container
+      # it will ignore the live sync for node_modules
+      - /usr/src/app/node_modules

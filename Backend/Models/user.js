@@ -29,7 +29,7 @@ const userSchema = new mongoose.Schema(
       select: false, //it won't show up in any routes
     },
     passwordResetToken: String,
-    passwordResetExpires: String,
+    passwordResetExpires: Date,
     passwordChangedAt: Date,
     avatar: {
       public_id: {
@@ -37,6 +37,7 @@ const userSchema = new mongoose.Schema(
       },
       url: {
         type: String,
+        default: "https://i.imgur.com/sm235gS.jpg",
       },
     },
     role: {
@@ -53,7 +54,7 @@ const userSchema = new mongoose.Schema(
   {
     toJSON: { virtuals: true },
     toObject: { virtuals: true },
-  }
+  },
 );
 
 //using document middleware to hash the password, runs on save and create
@@ -71,7 +72,7 @@ userSchema.pre("save", async function (next) {
 //creating instance to comapre the saved hashed password with the entered password
 userSchema.methods.correctPassword = async function (
   candidatePassword, //Password entered by the user
-  userPassword //hashed password stored in the database
+  userPassword, //hashed password stored in the database
 ) {
   //we cant use this.password because in the userSchema we have set select:false, so we passed it in the function
   return await bcrypt.compare(candidatePassword, userPassword);
@@ -83,7 +84,7 @@ userSchema.methods.changedPasswordAfter = function (JWTTimeStamp) {
   if (this.passwordChangedAt) {
     const changedTimestamp = parseInt(
       this.passwordChangedAt.getTime() / 1000,
-      10 //10 means this is a base 10 number
+      10, //10 means this is a base 10 number
     ); //converting to seconds
 
     //if this is true means password was changed after jwt was issued

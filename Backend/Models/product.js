@@ -38,12 +38,12 @@ const productSchema = new mongoose.Schema(
     images: [
       {
         public_id: {
+          required: [true, "Image public_id is required"],
           type: String,
-          required: true,
         },
         url: {
+          required: [true, "Image url is required"],
           type: String,
-          required: true,
         },
       },
     ],
@@ -87,7 +87,7 @@ const productSchema = new mongoose.Schema(
   {
     toJSON: { virtuals: true },
     toObject: { virtuals: true },
-  }
+  },
 );
 
 productSchema.index({ price: 1, ratingsAverage: -1 }); //1 means ascending order and -1 means descending order

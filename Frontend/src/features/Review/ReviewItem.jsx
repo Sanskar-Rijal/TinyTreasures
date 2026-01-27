@@ -8,7 +8,7 @@ function ReviewItem({ review }) {
       <div className="mb-4 flex items-center justify-start gap-2 md:gap-3">
         <div className="h-10 w-10 overflow-hidden rounded-full">
           <img
-            src="https://i.imgur.com/sWodf8f.jpg"
+            src={review.user.avatar.url}
             alt="Profile"
             className="h-full w-full object-cover"
           />
