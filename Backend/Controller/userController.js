@@ -1,8 +1,8 @@
+import multer from "multer";
+import sharp from "sharp";
 import AppError from "../utils/appError.js";
 import catchAsync from "../utils/catchAsync.js";
 import User from "../Models/user.js";
-import multer from "multer";
-import sharp from "sharp";
 import cloudinary from "../utils/cloudinary.js";
 //for image
 //1) Store file temporarily in memory
@@ -21,7 +21,7 @@ const upload = multer({
 });
 
 //2) Creating middleware to upload userPhoto
-const uploadUserPhoto = upload.single("photo");
+const uploadUserPhoto = upload.single("avatar");
 
 //3) Resize and upload user photo to cloudinary
 const resizeUserPhoto = catchAsync(async (req, res, next) => {
@@ -31,13 +31,10 @@ const resizeUserPhoto = catchAsync(async (req, res, next) => {
 
   //Resize the image using sharp before uploading to cloudinary
   const buffer = await sharp(req.file.buffer)
-    .resize(
-      { width: 500, height: 500 },
-      {
-        fit: sharp.fit.cover,
-        position: sharp.strategy.entropy,
-      },
-    )
+    .resize(500, 500, {
+      fit: sharp.fit.cover,
+      position: sharp.strategy.entropy,
+    })
     .toFormat("jpeg")
     .jpeg({ quality: 90 })
     .toBuffer();
@@ -45,7 +42,7 @@ const resizeUserPhoto = catchAsync(async (req, res, next) => {
   //now we will upload to cloudinary
   const stream = cloudinary.uploader.upload_stream(
     {
-      folder: "avatars",
+      folder: "TinyTreasures/avatars",
       public_id: `user-${req.user.id}-${Date.now()}`,
       resource_type: "image",
     },
@@ -88,6 +85,11 @@ const updateProfile = catchAsync(async (req, res, next) => {
 
   //4)if user uploaded photo then we will add that to the updatedData
   if (req.file && req.file.cloudinaryAvatar) {
+    //This means user has uploaded new photo, delete previous photo from cloudinary
+    if (req.user.avatar && req.user.avatar.public_id) {
+      await cloudinary.uploader.destroy(req.user.avatar.public_id);
+    }
+
     updatedData.avatar = {
       public_id: req.file.public_id,
       url: req.file.cloudinaryAvatar,
