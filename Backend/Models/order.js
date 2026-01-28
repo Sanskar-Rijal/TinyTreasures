@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 
-
 const orderSchema = new mongoose.Schema(
   {
     shippingInfo: {
@@ -63,14 +62,14 @@ const orderSchema = new mongoose.Schema(
         type: String,
       },
     },
-    paymentMethod: {
-      type: String,
-      required: [true, "Please enter payment method"],
-      enum: {
-        values: ["COD", "Online"],
-        message: "Please select correct payment method",
-      },
-    },
+    // paymentMethod: {
+    //   type: String,
+    //   required: [true, "Please enter payment method"],
+    //   enum: {
+    //     values: ["COD", "Online"],
+    //     message: "Please select correct payment method",
+    //   },
+    // },
     itemsPrice: {
       type: Number,
       required: [true, "Please enter item Price"],
@@ -103,7 +102,7 @@ const orderSchema = new mongoose.Schema(
     timestamps: true,
     toJSON: { virtuals: true },
     toObject: { virtuals: true },
-  }
+  },
 );
 
 //using Query middleware to populate user
@@ -113,8 +112,6 @@ orderSchema.pre(/^find/, function (next) {
     select: "name email",
   });
 });
-
-
 
 const Order = mongoose.model("Order", orderSchema);
 

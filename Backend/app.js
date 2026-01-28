@@ -8,6 +8,7 @@ import AppError from "./utils/appError.js";
 import userRouter from "./Routes/userRoute.js";
 import orderRouter from "./Routes/orderRoute.js";
 import reviewRouter from "./Routes/reviewRoute.js";
+import paymentRouter from "./Routes/paymentRoute.js";
 
 const app = express();
 app.use(express.json());
@@ -15,7 +16,7 @@ app.use(
   cors({
     origin: "http://localhost:5173", // frontend URL
     credentials: true,
-  })
+  }),
 );
 app.use(cookieParser());
 
@@ -55,6 +56,7 @@ app.use("/api/v1/products", productRouter);
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/orders", orderRouter);
 app.use("/api/v1/reviews", reviewRouter);
+app.use("/api/v1/payments", paymentRouter);
 
 //if No route matches, catch all undefined routes (404 handler)
 app.use((req, res, next) => {

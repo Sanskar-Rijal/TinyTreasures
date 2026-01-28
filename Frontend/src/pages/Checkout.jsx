@@ -1,16 +1,33 @@
 import { LuMapPin } from "react-icons/lu";
 import BackToXyz from "../ui/BackToXyz";
 import OrderSummary from "../features/cart/OrderSummary";
+import { useSelector } from "react-redux";
+import useInitiatePayment from "../hooks/useInitiatePayment";
+import Loader from "../ui/Loader";
 
 function Checkout() {
+  const totalPrice = useSelector((state) => state.cart.totalPrice);
+  const { isPending: isInitiating, initiatePayment } = useInitiatePayment();
+
+  function handlePayment(event) {
+    event.preventDefault();
+    //when user clicks on proceed to checkout button
+    const data = {
+      totalPrice: totalPrice,
+      orderId: "test-123",
+    };
+    initiatePayment(data);
+  }
+
   return (
     <div className="container mx-auto px-4 py-8">
+      {isInitiating && <Loader />}
       {/* back Button  */}
       <BackToXyz label={"Back to Cart"} />
       <h1 className="mb-4 text-xl font-semibold text-gray-900 sm:text-2xl md:text-3xl">
         Checkout
       </h1>
-      <form>
+      <form onSubmit={handlePayment}>
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           <div className="space-y-6 lg:col-span-2">
             <div className="space-y-4 rounded-lg border border-gray-200 bg-white/80 p-6">
@@ -110,23 +127,7 @@ function Checkout() {
                     placeholder="Enter your city"
                   />
                 </div>
-                {/* State  */}
-                <div className="space-y-2">
-                  <label
-                    htmlFor="state"
-                    className="block font-semibold text-gray-900"
-                  >
-                    State
-                  </label>
-                  <input
-                    id="state"
-                    className="w-full rounded-xl border border-gray-200 bg-white px-2 py-2 text-gray-900 focus:ring-2 focus:ring-purple-400 focus:outline-none"
-                    type="text"
-                    required
-                    placeholder="Enter your state"
-                  />
-                </div>
-                {/* zip code */}
+                {/* zip code  */}
                 <div className="space-y-2">
                   <label
                     htmlFor="zipCode"
@@ -142,11 +143,27 @@ function Checkout() {
                     placeholder="Enter your zip code"
                   />
                 </div>
+                {/* country  */}
+                <div className="space-y-2">
+                  <label
+                    htmlFor="country"
+                    className="block font-semibold text-gray-900"
+                  >
+                    Country
+                  </label>
+                  <input
+                    id="country"
+                    className="w-full rounded-xl border border-gray-200 bg-white px-2 py-2 text-gray-900 focus:ring-2 focus:ring-purple-400 focus:outline-none"
+                    type="text"
+                    required
+                    placeholder="Enter your country"
+                  />
+                </div>
               </div>
             </div>
           </div>
           {/* Order Summary  */}
-          <OrderSummary label={"Pay with Khalti"} />
+          <OrderSummary label={"Pay with Khalti"} type={"submit"} />
         </div>
       </form>
     </div>

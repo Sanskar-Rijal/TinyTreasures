@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import Button from "../../ui/Button";
 
-function OrderSummary({ label, to = "" }) {
+function OrderSummary({ label, to, type }) {
   const subTotal = useSelector((state) => state.cart.subTotal);
   const totalPrice = useSelector((state) => state.cart.totalPrice);
   const tax = useSelector((state) => state.cart.tax);
@@ -39,13 +39,23 @@ function OrderSummary({ label, to = "" }) {
             </div>
           </div>
           {/* Proceed to Checkout Button  */}
-          <Button
-            to={to}
-            className="inline-flex w-full items-center justify-center gap-2 rounded-full text-sm font-medium transition-all focus:outline-none disabled:pointer-events-none disabled:opacity-50"
-            size="lg"
-          >
-            {label}
-          </Button>
+          {to ? (
+            <Button
+              to={to}
+              className="inline-flex w-full items-center justify-center gap-2 rounded-full text-sm font-medium transition-all focus:outline-none disabled:pointer-events-none disabled:opacity-50"
+              size="lg"
+            >
+              {label}
+            </Button>
+          ) : (
+            <Button
+              type={type}
+              className="inline-flex w-full items-center justify-center gap-2 rounded-full text-sm font-medium transition-all hover:cursor-pointer focus:outline-none disabled:pointer-events-none disabled:opacity-50"
+              size="lg"
+            >
+              {label}
+            </Button>
+          )}
         </div>
       </div>
     </div>

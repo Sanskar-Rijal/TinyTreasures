@@ -25,7 +25,7 @@ function ProfileInfo() {
 
   const { updateNameEmail, isPending: isUpdatingProfile } = useUpdateProfile();
 
-  const { isDirty } = formState;
+  const { dirtyFields } = formState;
 
   //function to handle image change
   function handleImageChange(event) {
@@ -123,7 +123,7 @@ function ProfileInfo() {
           </div>
           {/* Button for save changes  */}
           <Button
-            disabled={!isDirty}
+            disabled={Object.keys(dirtyFields).length === 0 && !selectedImage}
             type="submit"
             size="lg"
             className="inline-flex cursor-pointer items-center justify-center rounded-full text-sm font-medium transition-all focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
