@@ -11,7 +11,7 @@ function Login() {
   const { login, isPending } = useLogin();
   const { register, handleSubmit } = useForm();
 
-  //function to handle onSubmit
+  //function to handle onSubmits
   function onSubmit(data) {
     login(data); //{email and password}
   }
