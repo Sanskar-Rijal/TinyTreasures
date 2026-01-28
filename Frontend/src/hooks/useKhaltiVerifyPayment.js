@@ -12,7 +12,7 @@ export default function useKhaltiVerifyPayment() {
     mutationFn: verifyKhaltiPayment,
     onSuccess: () => {
       dispatch(clearCart());
-      navigate("/");
+      navigate("/userProfile/myOrders");
     },
     onError: (err) => {
       toast.error(err.message);

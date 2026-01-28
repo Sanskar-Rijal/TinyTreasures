@@ -1,4 +1,9 @@
-import { BASE_URL, INITIATE_PAYMENT, VERIFY_PAYMENT } from "../utils/Constants";
+import {
+  BASE_URL,
+  INITIATE_PAYMENT,
+  My_ORDERS,
+  VERIFY_PAYMENT,
+} from "../utils/Constants";
 
 //function to initiate khalti payment
 export async function initiateKhaltiPayment(orderData) {
@@ -29,6 +34,20 @@ export async function verifyKhaltiPayment(paymentData) {
   });
   if (!response.ok) {
     throw Error("Failed to verify Khalti payment");
+  }
+  const data = await response.json();
+  return data;
+}
+
+//get my orders
+export async function getMyOrders() {
+  const response = await fetch(`${BASE_URL}${My_ORDERS}`, {
+    method: "GET",
+    credentials: "include",
+  });
+  if (!response.ok) {
+    const err = await response.json();
+    throw Error(err.message || "Failed to fetch order details");
   }
   const data = await response.json();
   return data;

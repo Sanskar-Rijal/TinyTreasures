@@ -26,6 +26,7 @@ const initiateKhaltiPayment = catchAsync(async (req, res, next) => {
     user: req.user.id,
     paymentInfo: {
       status: "Pending",
+      expiresAt: new Date(Date.now() + 15 * 60 * 1000), //Order will delete automatically if user does not pay within 15 minutes
     },
   });
 
@@ -94,6 +95,7 @@ const verifyKhaltiPayment = catchAsync(async (req, res, next) => {
     paymentInfo: {
       id: response.data.transaction_id,
       status: response.data.status,
+      expiresAt: null, //cancel the expiry as payment is done
     },
   });
 

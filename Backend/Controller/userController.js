@@ -4,6 +4,7 @@ import AppError from "../utils/appError.js";
 import catchAsync from "../utils/catchAsync.js";
 import User from "../Models/user.js";
 import cloudinary from "../utils/cloudinary.js";
+import Order from "../Models/order.js";
 //for image
 //1) Store file temporarily in memory
 const multerStorage = multer.memoryStorage();
@@ -65,10 +66,15 @@ const resizeUserPhoto = catchAsync(async (req, res, next) => {
 //get myself
 const getMe = catchAsync(async (req, res, next) => {
   //using cookie to get the current user from protect route
-  const { user } = req;
-  if (!user) {
+  const userDoc = req.user;
+  if (!userDoc) {
     return next(new AppError("There is no user logged in", 401));
   }
+  //find number of orders placed by the user
+  const orders = await Order.find({ user: userDoc.id });
+  const user = userDoc.toObject(); //convert mongoose doc to plain object
+  user.numberofOrders = orders.length;
+
   res.status(200).json({
     status: "true",
     message: user,

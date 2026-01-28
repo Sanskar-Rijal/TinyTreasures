@@ -15,7 +15,7 @@ function PaymentSuccess() {
         verifyPayment({ pidx, orderId });
       }
     },
-    [pidx, verifyPayment],
+    [pidx, verifyPayment, orderId],
   );
 
   return (

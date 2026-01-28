@@ -69,6 +69,10 @@ const orderSchema = new mongoose.Schema(
       status: {
         type: String,
       },
+      expiresAt: {
+        type: Date,
+        index: { expires: 0 }, //TTL index
+      },
     },
     // paymentMethod: {
     //   type: String,
@@ -81,7 +85,7 @@ const orderSchema = new mongoose.Schema(
     itemsPrice: {
       type: Number,
       required: [true, "Please enter item Price"],
-      defaule: 0.0,
+      default: 0.0,
     },
     taxPrice: {
       type: Number,
@@ -105,6 +109,9 @@ const orderSchema = new mongoose.Schema(
     deliveredAt: {
       type: Date,
     },
+    estimatedDelivery: {
+      type: Date,
+    },
   },
   {
     timestamps: true,
@@ -112,6 +119,16 @@ const orderSchema = new mongoose.Schema(
     toObject: { virtuals: true },
   },
 );
+
+//creating document middleware to calculate estimated delivery date
+orderSchema.pre("save", function (next) {
+  //let's check whether order is new or not
+  if (this.isNew) {
+    const currentDate = Date.now();
+    //estimated delivery is 7 days from now
+    this.estimatedDelivery = new Date(currentDate + 7 * 24 * 60 * 60 * 1000);
+  }
+});
 
 //using Query middleware to populate user
 orderSchema.pre(/^find/, function (next) {
