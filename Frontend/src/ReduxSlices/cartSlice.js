@@ -2,13 +2,37 @@ import { createSlice } from "@reduxjs/toolkit";
 import toast from "react-hot-toast";
 
 //just like redux we have to define initial state first
-const initialStateCart = {
+const defaultCartState = {
   orderItems: [],
   subTotal: 0,
   totalPrice: 0,
   tax: 0, //13% of total price
   shippingPrice: 0, //free shipping above rs 1500
 };
+
+// Load data from local storage
+function loadCartFromStorage() {
+  try {
+    const savedCart = localStorage.getItem("cart");
+    if (savedCart) {
+      return JSON.parse(savedCart);
+    }
+  } catch (error) {
+    console.error("Error loading cart from localStorage:", error);
+  }
+  return defaultCartState;
+}
+
+// Save cart to localStorage
+function saveCartToStorage(state) {
+  try {
+    localStorage.setItem("cart", JSON.stringify(state));
+  } catch (error) {
+    console.error("Error saving cart to localStorage:", error);
+  }
+}
+
+const initialStateCart = loadCartFromStorage();
 /*
 orderItems:{
 "name":"Charger",
@@ -25,7 +49,7 @@ function calculateTotalPrice(state) {
     (acc, item) => acc + item.price * item.quantity,
     0,
   );
-  state.totalPrice = total.toFixed(2);
+  state.totalPrice = total;
   state.tax = (state.totalPrice * 0.13).toFixed(2);
   state.subTotal = (state.totalPrice - state.tax).toFixed(2);
   state.shippingPrice = state.totalPrice > 1500 ? 0 : 120;
@@ -49,6 +73,7 @@ const cartSlice = createSlice({
         state.orderItems.push(action.payload);
       }
       calculateTotalPrice(state);
+      saveCartToStorage(state);
     },
     removeItem(state, action) {
       //we pass here id of the product to be removed
@@ -57,6 +82,7 @@ const cartSlice = createSlice({
         (item) => item.product !== productId,
       );
       calculateTotalPrice(state);
+      saveCartToStorage(state);
     },
     increaseItemQuantity(state, action) {
       const productId = action.payload;
@@ -64,8 +90,8 @@ const cartSlice = createSlice({
       if (item) {
         item.quantity += 1;
         calculateTotalPrice(state);
-      }else{
-
+        saveCartToStorage(state);
+      } else {
         toast.error("Add items to cart first, to increase quantity");
       }
     },
@@ -84,12 +110,15 @@ const cartSlice = createSlice({
         );
       }
       calculateTotalPrice(state);
+      saveCartToStorage(state);
     },
     clearCart(state) {
       state.orderItems = [];
       state.totalPrice = 0;
+      state.subTotal = 0;
       state.tax = 0;
       state.shippingPrice = 0;
+      localStorage.removeItem("cart");
     },
   },
 });

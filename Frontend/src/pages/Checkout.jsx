@@ -2,21 +2,31 @@ import { LuMapPin } from "react-icons/lu";
 import BackToXyz from "../ui/BackToXyz";
 import OrderSummary from "../features/cart/OrderSummary";
 import { useSelector } from "react-redux";
+import { useForm } from "react-hook-form";
 import useInitiatePayment from "../hooks/useInitiatePayment";
 import Loader from "../ui/Loader";
 
 function Checkout() {
+  const cartItems = useSelector((state) => state.cart.orderItems);
+  const itemsPrice = useSelector((state) => state.cart.subTotal);
+  const taxPrice = useSelector((state) => state.cart.tax);
+  const shippingPrice = useSelector((state) => state.cart.shippingPrice);
   const totalPrice = useSelector((state) => state.cart.totalPrice);
   const { isPending: isInitiating, initiatePayment } = useInitiatePayment();
+  //using react hook form
+  const { register, handleSubmit } = useForm();
 
-  function handlePayment(event) {
-    event.preventDefault();
+  function handlePayment(formData) {
     //when user clicks on proceed to checkout button
-    const data = {
-      totalPrice: totalPrice,
-      orderId: "test-123",
+    const payload = {
+      shippingInfo: formData,
+      orderItems: cartItems,
+      itemsPrice,
+      taxPrice,
+      shippingPrice,
+      totalPrice,
     };
-    initiatePayment(data);
+    initiatePayment(payload);
   }
 
   return (
@@ -27,7 +37,7 @@ function Checkout() {
       <h1 className="mb-4 text-xl font-semibold text-gray-900 sm:text-2xl md:text-3xl">
         Checkout
       </h1>
-      <form onSubmit={handlePayment}>
+      <form onSubmit={handleSubmit(handlePayment)}>
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           <div className="space-y-6 lg:col-span-2">
             <div className="space-y-4 rounded-lg border border-gray-200 bg-white/80 p-6">
@@ -51,6 +61,7 @@ function Checkout() {
                     FullName
                   </label>
                   <input
+                    {...register("fullName")}
                     id="fullName"
                     className="w-full rounded-xl border border-gray-200 bg-white px-2 py-2 text-gray-900 focus:ring-2 focus:ring-purple-400 focus:outline-none"
                     type="text"
@@ -69,6 +80,7 @@ function Checkout() {
                     PhoneNumber
                   </label>
                   <input
+                    {...register("phoneNo")}
                     id="phoneNo"
                     className="w-full rounded-xl border border-gray-200 bg-white px-2 py-2 text-gray-900 focus:ring-2 focus:ring-purple-400 focus:outline-none"
                     type="number"
@@ -86,6 +98,7 @@ function Checkout() {
                   Email
                 </label>
                 <input
+                  {...register("email")}
                   id="email"
                   className="w-full rounded-xl border border-gray-200 bg-white px-2 py-2 text-gray-900 focus:ring-2 focus:ring-purple-400 focus:outline-none"
                   type="email"
@@ -102,6 +115,7 @@ function Checkout() {
                   Street Address
                 </label>
                 <input
+                  {...register("address")}
                   id="address"
                   className="w-full rounded-xl border border-gray-200 bg-white px-2 py-2 text-gray-900 focus:ring-2 focus:ring-purple-400 focus:outline-none"
                   type="text"
@@ -120,6 +134,7 @@ function Checkout() {
                     City
                   </label>
                   <input
+                    {...register("city")}
                     id="city"
                     className="w-full rounded-xl border border-gray-200 bg-white px-2 py-2 text-gray-900 focus:ring-2 focus:ring-purple-400 focus:outline-none"
                     type="text"
@@ -136,6 +151,7 @@ function Checkout() {
                     Zip Code
                   </label>
                   <input
+                    {...register("zipCode")}
                     id="zipCode"
                     className="w-full rounded-xl border border-gray-200 bg-white px-2 py-2 text-gray-900 focus:ring-2 focus:ring-purple-400 focus:outline-none"
                     type="text"
@@ -152,6 +168,7 @@ function Checkout() {
                     Country
                   </label>
                   <input
+                    {...register("country")}
                     id="country"
                     className="w-full rounded-xl border border-gray-200 bg-white px-2 py-2 text-gray-900 focus:ring-2 focus:ring-purple-400 focus:outline-none"
                     type="text"

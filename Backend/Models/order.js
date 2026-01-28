@@ -3,6 +3,14 @@ import mongoose from "mongoose";
 const orderSchema = new mongoose.Schema(
   {
     shippingInfo: {
+      fullName: {
+        type: String,
+        required: [true, "Fullname field is required"],
+      },
+      email: {
+        type: String,
+        required: [true, "Email field is required"],
+      },
       address: {
         type: String,
         required: [true, "Address field is required"],

@@ -15,7 +15,7 @@ function Search({ laptop = false, mobile = false }) {
       if (keyword.trim()) {
         navigate(`/?keyword=${keyword.trim()}`);
       } else {
-        navigate(`/`);
+        // navigate(`/`);
       }
     }, 400); // delay in ms
 

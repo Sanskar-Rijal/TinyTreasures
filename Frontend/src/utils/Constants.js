@@ -10,3 +10,4 @@ export const FIND_PRODUCTS_BY_ID = "products";
 export const RESITER_USER = "users/signup";
 export const ADD_NEW_REVIEW = "reviews/createReview";
 export const INITIATE_PAYMENT = "payments/khalti/initiate";
+export const VERIFY_PAYMENT = "payments/khalti/verify";

@@ -21,6 +21,7 @@ import Returns from "./pages/Returns";
 import Help from "./pages/Help";
 import TermsAndConditions from "./pages/TermsAndConditions";
 import EditUser from "./pages/EditUser";
+import PaymentSuccess from "./pages/PaymentSuccess";
 
 const router = createBrowserRouter([
   {
@@ -93,6 +94,10 @@ const router = createBrowserRouter([
       {
         path: "/termsAndConditions",
         element: <TermsAndConditions />,
+      },
+      {
+        path: "/payment-success",
+        element: <PaymentSuccess />,
       },
     ],
   },
