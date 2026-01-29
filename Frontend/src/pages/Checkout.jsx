@@ -5,8 +5,17 @@ import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import useInitiatePayment from "../hooks/useInitiatePayment";
 import Loader from "../ui/Loader";
+import { useEffect, useRef } from "react";
 
 function Checkout() {
+  const formRef = useRef(null);
+
+  // Clear form when user hits back button
+  useEffect(() => {
+    if (formRef.current) {
+      formRef.current.reset();
+    }
+  }, []);
   const cartItems = useSelector((state) => state.cart.orderItems);
   const itemsPrice = useSelector((state) => state.cart.subTotal);
   const taxPrice = useSelector((state) => state.cart.tax);
@@ -37,7 +46,11 @@ function Checkout() {
       <h1 className="mb-4 text-xl font-semibold text-gray-900 sm:text-2xl md:text-3xl">
         Checkout
       </h1>
-      <form onSubmit={handleSubmit(handlePayment)}>
+      <form
+        ref={formRef}
+        autoComplete="off"
+        onSubmit={handleSubmit(handlePayment)}
+      >
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           <div className="space-y-6 lg:col-span-2">
             <div className="space-y-4 rounded-lg border border-gray-200 bg-white/80 p-6">

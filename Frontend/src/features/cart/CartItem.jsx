@@ -27,7 +27,7 @@ function CartItem({ item }) {
           </div>
           <div className="flex-1">
             <div className="flex flex-col justify-center">
-              <h3 className="mb-2 truncate text-lg font-semibold text-gray-900 sm:text-xl">
+              <h3 className="mb-2 line-clamp-1 text-lg font-semibold text-gray-900 sm:text-xl">
                 {item.name}
               </h3>
               <p className="mb-5 text-sm text-gray-600">{item.category}</p>

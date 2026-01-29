@@ -11,6 +11,9 @@ import { addToWish, removeFromWish } from "../../ReduxSlices/wishSlice";
 
 function ProductDescription({ product }) {
   let [iswishlisted, setWishListed] = useState(false);
+
+  const totalPrice = useSelector((state) => state.cart.totalPrice);
+
   const dispatch = useDispatch();
   const ProductQuantity = useSelector(
     (state) =>
@@ -96,7 +99,7 @@ function ProductDescription({ product }) {
         <h3 className="mb-3 text-lg text-gray-900 sm:text-xl">Quantity</h3>
         <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
           <QuantitySelector quantity={ProductQuantity} product={product.id} />
-          <span className="text-gray-600">Total: Rs 15000</span>
+          <span className="text-gray-600">Total: Rs {totalPrice}</span>
         </div>
       </div>
       {/* Add to cart button or wishlist */}

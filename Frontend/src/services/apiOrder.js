@@ -16,6 +16,8 @@ export async function initiateKhaltiPayment(orderData) {
     body: JSON.stringify(orderData),
   });
   if (!response.ok) {
+    const err = await response.json();
+    console.log("Error initiating payment:", err);
     throw Error("Failed to initiate Khalti payment");
   }
   const data = await response.json();

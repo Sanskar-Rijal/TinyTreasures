@@ -56,7 +56,6 @@ const initiateKhaltiPayment = catchAsync(async (req, res, next) => {
     //khalti sends error messages in error.response.data
     if (error.response) {
       const errData = error.response.data;
-
       const message = (() => {
         if (typeof errData === "string") return errData;
         const key = Object.keys(errData).find((k) => k !== "error_key");

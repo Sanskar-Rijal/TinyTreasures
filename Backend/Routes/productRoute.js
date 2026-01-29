@@ -27,7 +27,13 @@ router
 router
   .route("/:id")
   .get(getProductById)
-  .put(protect, restrictTo("admin"), updateProductById)
+  .put(
+    protect,
+    restrictTo("admin"),
+    uploadProductImages,
+    resizeProductImages,
+    updateProductById,
+  )
   .delete(protect, restrictTo("admin"), deleteProductById);
 
 export default router;

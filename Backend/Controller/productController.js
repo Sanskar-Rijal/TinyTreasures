@@ -36,9 +36,9 @@ const resizeProductImages = catchAsync(async (req, res, next) => {
     req.files.map(async (file, index) => {
       //4) Resiize the images using sharp
       const buffer = await sharp(file.buffer)
-        .resize(2000, 1333, {
-          fit: sharp.fit.cover,
-          position: sharp.strategy.entropy,
+        .resize(2000, 2000, {
+          fit: sharp.fit.inside,
+          withoutEnlargement: true,
         })
         .toFormat("jpeg")
         .jpeg({ quality: 90 })
@@ -149,24 +149,50 @@ const getProductById = catchAsync(async (req, res, next) => {
 
 //update product by id
 const updateProductById = catchAsync(async (req, res, next) => {
-  const product = await Product.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-    runValidators: true,
-  });
+  try {
+    const product = await Product.findById(req.params.id);
 
-  if (!product) {
-    return next(new AppError("No product found with that ID", 404));
+    if (!product) {
+      return next(new AppError("No product found with that ID", 404));
+    }
+
+    if (req.body.images && req.body.images.length > 0) {
+      await deleteCloudinaryImages(product.images);
+      product.images = req.body.images;
+    }
+
+    if (req.body.name) product.name = req.body.name;
+    if (req.body.description) product.description = req.body.description;
+    if (req.body.price) product.price = req.body.price;
+    if (req.body.category) product.category = req.body.category;
+    if (req.body.stock) product.stock = req.body.stock;
+
+    await product.save();
+    res.status(200).json({
+      status: "true",
+      message: product,
+    });
+  } catch (error) {
+    // if some error occurs while updating product, delete the uploaded images if uploaded
+    if (req.body.images && req.body.images.length > 0) {
+      await deleteCloudinaryImages(req.body.images);
+    }
+    //Re-throwing the error so that our global error handler will handle it
+    throw error;
   }
-
-  res.status(200).json({
-    status: "true",
-    message: product,
-  });
 });
 
 //delete Product by id
 const deleteProductById = catchAsync(async (req, res, next) => {
-  const product = await Product.findOneAndDelete(req.params.id);
+  //const product = await Product.findOneAndDelete(req.params.id);
+  const product = await Product.findById(req.params.id);
+
+  //if product has images, delete them from cloudinary
+  if (product.images && product.images.length > 0) {
+    await deleteCloudinaryImages(product.images);
+  }
+  //now delete the product from database
+  await product.deleteOne();
 
   if (!product) {
     return next(new AppError("No product found with that ID", 404));

@@ -16,7 +16,7 @@ function ProductImages({ images }) {
     <div className="space-y-4">
       <div className="group relative">
         <img
-          className="h-64 w-full rounded-2xl object-cover sm:h-96 lg:h-[500px]"
+          className="h-64 w-full rounded-2xl bg-white object-contain sm:h-96 lg:h-[500px]"
           src={images[currentImageIndex].url}
           alt={images.id}
         />
@@ -56,7 +56,10 @@ function ProductImages({ images }) {
               onClick={() => setCurrentImageIndex(index)}
               key={index}
             >
-              <img className="h-20 w-full object-cover" src={image.url} />
+              <img
+                className="h-20 w-full bg-white object-contain"
+                src={image.url}
+              />
             </button>
           ))}
         </div>
