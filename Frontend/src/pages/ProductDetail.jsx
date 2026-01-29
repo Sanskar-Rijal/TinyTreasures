@@ -37,7 +37,7 @@ function ProductDetail() {
   return (
     <div className="container mx-auto px-4 py-8">
       {/* Back button  */}
-      <BackToXyz label="Back to Products " to="/" />
+      <BackToXyz label="Back to Products " />
 
       {/* product description photo etc */}
       <div className="mb-13 grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-10">

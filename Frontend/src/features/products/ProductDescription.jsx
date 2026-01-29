@@ -58,7 +58,7 @@ function ProductDescription({ product }) {
       <Badge className="mb-4 text-sm md:text-[14px]" variant="secondary">
         {product.category}
       </Badge>
-      <h1 className="mb-4 text-3xl font-semibold text-gray-900 sm:text-4xl md:text-5xl">
+      <h1 className="mb-4 text-2xl font-semibold text-gray-900 sm:text-3xl">
         {product.name}
       </h1>
       {/* showing rating i.e stars */}

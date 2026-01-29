@@ -53,6 +53,7 @@ function calculateTotalPrice(state) {
   state.tax = (state.totalPrice * 0.13).toFixed(2);
   state.subTotal = (state.totalPrice - state.tax).toFixed(2);
   state.shippingPrice = state.totalPrice > 1500 ? 0 : 120;
+  state.totalPrice += state.shippingPrice; //Add shipping Price to total Price
 }
 
 const cartSlice = createSlice({

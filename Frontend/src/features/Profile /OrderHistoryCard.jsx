@@ -35,7 +35,7 @@ function OrderHistoryCard() {
             </h3>
           </div>
           {/* if you havent placed any orders  */}
-          <p className="mb- text-lg text-gray-600">
+          <p className="mb-5 text-lg text-gray-600">
             You have {numberofOrders} order. Please click the button below to
             view all your orders.
           </p>

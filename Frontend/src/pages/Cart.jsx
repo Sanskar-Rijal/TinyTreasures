@@ -35,7 +35,7 @@ function Cart() {
   return (
     <div className="container mx-auto px-4 py-8">
       {/* Back Button  */}
-      <BackToXyz label="Back to Products" />
+      <BackToXyz label="Back to Products" to="/" />
       <h1 className="mb-4 text-xl font-semibold text-gray-900 sm:text-2xl md:text-3xl">
         Shopping Cart ({cartItems.length} items)
       </h1>
