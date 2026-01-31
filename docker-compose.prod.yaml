@@ -14,3 +14,5 @@ services:
       dockerfile: Dockerfile.prod
     depends_on:
       - backend
+    ports: 
+      - "8080:80"
