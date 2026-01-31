@@ -12,7 +12,5 @@ services:
     build:
       context: ./Frontend
       dockerfile: Dockerfile.prod
-    ports:
-      - "80:80"
     depends_on:
       - backend
