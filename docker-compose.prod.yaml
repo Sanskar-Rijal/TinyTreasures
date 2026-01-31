@@ -1,0 +1,18 @@
+services:
+  backend:
+    build:
+      context: ./Backend
+      dockerfile: Dockerfile.prod
+    expose:
+      - "3000"
+    env_file:
+      - ./Backend/config.env
+
+  frontend:
+    build:
+      context: ./Frontend
+      dockerfile: Dockerfile.prod
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
