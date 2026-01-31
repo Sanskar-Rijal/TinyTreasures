@@ -4,7 +4,7 @@ services:
       context: ./Backend
       dockerfile: Dockerfile.prod
     ports:
-      - "3000:3000""
+      - "3000:3000"
     env_file:
       - ./Backend/config.env
 
