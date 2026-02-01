@@ -1,9 +1,10 @@
+import { EMAIL, PHONENO } from "./Constants";
+
 const returnProcess = [
   {
     step: 1,
     title: "Contact Customer Support",
-    description:
-      "Email us at support@purpleshop.com or call 1-800-PURPLE-SHOP to initiate a return.",
+    description: `Email us at ${EMAIL} or call ${PHONENO} to initiate a return.`,
   },
   {
     step: 2,
@@ -122,7 +123,7 @@ const termsAndConditions = [
   {
     title: "Governing Law",
     description:
-      "These Terms and Conditions are governed by and interpreted in accordance with the laws of the State of California, without regard to conflict of law principles.",
+      "These Terms and Conditions are governed by and interpreted in accordance with the laws of Nepal government.",
   },
 ];
 

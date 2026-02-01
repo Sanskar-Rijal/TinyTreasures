@@ -35,7 +35,7 @@ function About() {
         <h2 className="mb-4 text-lg font-semibold sm:text-xl">Who we are</h2>
         <p className="mb-4 text-gray-600">
           Welcome to {STORE_NAME}, your premier destination for cutting-edge
-          technology products. Founded in 2024, we've quickly become a trusted
+          technology products. Founded in 2025, we've quickly become a trusted
           name in online electronics retail.
         </p>
         <p className="mb-4 text-gray-600">

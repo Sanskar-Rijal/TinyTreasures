@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import useInitiatePayment from "../hooks/useInitiatePayment";
 import Loader from "../ui/Loader";
 import { useEffect, useRef } from "react";
+import PleaseLogin from "../ui/PleaseLogin";
 
 function Checkout() {
   const formRef = useRef(null);
@@ -16,6 +17,8 @@ function Checkout() {
       formRef.current.reset();
     }
   }, []);
+  //check whether user is loggedin or not
+  const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
   const cartItems = useSelector((state) => state.cart.orderItems);
   const itemsPrice = useSelector((state) => state.cart.subTotal);
   const taxPrice = useSelector((state) => state.cart.tax);
@@ -36,6 +39,10 @@ function Checkout() {
       totalPrice,
     };
     initiatePayment(payload);
+  }
+
+  if (!isAuthenticated) {
+    return <PleaseLogin />;
   }
 
   return (

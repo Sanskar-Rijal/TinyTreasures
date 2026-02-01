@@ -18,7 +18,7 @@ const createSendToken = (user, statusCode, res) => {
 
   res.cookie("token", token, {
     expires: new Date(
-      Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
+      Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000,
     ),
     httpOnly: true, //it will not allow the cookie to be accessed or modified by the browser
     secure: process.env.NODE_ENV === "production", //only HTTPS in production
@@ -49,7 +49,7 @@ const signup = catchAsync(async (req, res, next) => {
 
   //send welcome email to the user
   const url = `${req.protocol}://${req.get("host")}/login`;
-  //await new Email(newUser, url).sendWelcome();
+  await new Email(newUser, url).sendWelcome();
   createSendToken(newUser, 201, res);
 });
 
@@ -84,7 +84,7 @@ const protect = catchAsync(async (req, res, next) => {
   //hello
   if (!token) {
     return next(
-      new AppError("You are not logged in! Please login to ge access", 401)
+      new AppError("You are not logged in! Please login to ge access", 401),
     );
   }
   //2)Verification of token
@@ -97,7 +97,7 @@ const protect = catchAsync(async (req, res, next) => {
   const currentUser = await User.findById(decoded.id);
   if (!currentUser) {
     return next(
-      new AppError("The user belonging to this token no longer exists", 401)
+      new AppError("The user belonging to this token no longer exists", 401),
     );
   }
 
@@ -105,7 +105,7 @@ const protect = catchAsync(async (req, res, next) => {
   const checkForPasswordChange = currentUser.changedPasswordAfter(decoded.iat);
   if (checkForPasswordChange) {
     return next(
-      new AppError("User recently changed password! Please login again", 401)
+      new AppError("User recently changed password! Please login again", 401),
     );
   }
 
@@ -139,7 +139,7 @@ const restrictTo =
     //roles is an array ["admin","lead-guide"]
     if (!roles.includes(req.user.role)) {
       return next(
-        new AppError("You do not have permission to perform this action", 403)
+        new AppError("You do not have permission to perform this action", 403),
       );
     }
     next();
@@ -154,7 +154,7 @@ const updatePassword = catchAsync(async (req, res, next) => {
   //2)Check if posted and current password is correct
   const valid = await user.correctPassword(
     req.body.currentPassword,
-    user.password
+    user.password,
   );
   //if not valid then throw error
   if (!valid) {
@@ -210,8 +210,8 @@ const forgotPassword = catchAsync(async (req, res, next) => {
     return next(
       new AppError(
         "There was an error sending the email, Try again later!",
-        500
-      )
+        500,
+      ),
     );
   }
 });
