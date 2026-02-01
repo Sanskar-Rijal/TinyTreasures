@@ -1,7 +1,7 @@
 export const STORE_NAME = "TinyTreasures";
-export const BASE_URL = "http://localhost:3000/api/v1/"; //development
+//export const BASE_URL = "http://localhost:3000/api/v1/"; //development
 //production
-//export const BASE_URL = "/api/v1/";
+export const BASE_URL = "/api/v1/";
 export const GET_PRODUCTS = "products";
 export const LOGIN_USER = "users/login";
 export const GET_MY_DETAILS = "users/getMe";
