@@ -14,7 +14,11 @@ const app = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: "http://localhost:5173", // frontend URL
+    origin: [
+      "http://localhost:5173", //Frontend urls
+      "http://20.187.145.249",
+      "https://tinytreasures.duckdns.org",
+    ],
     credentials: true,
   }),
 );
