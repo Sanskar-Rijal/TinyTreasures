@@ -10,12 +10,17 @@ class APIFeatures {
     const queryObj = { ...this.queryString };
     const { keyword } = queryObj;
 
+    const escapeRegex = (str) =>
+      str.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+
+    const keywordRegex = escapeRegex(keyword);
+
     const fields = keyword
       ? {
-          name: {
-            $regex: `^${keyword}`,
-            $options: "i",
-          },
+          $or: [
+            { name: { $regex: keywordRegex, $options: "i" } },
+            { category: { $regex: keywordRegex, $options: "i" } },
+          ],
         }
       : {};
 

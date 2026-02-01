@@ -34,8 +34,8 @@ const initiateKhaltiPayment = catchAsync(async (req, res, next) => {
     const response = await axios.post(
       "https://dev.khalti.com/api/v2/epayment/initiate/",
       {
-        return_url: "http://localhost:5173/payment-success",
-        website_url: "http://localhost:5173",
+        return_url: process.env.KHALTI_RETURN_URL,
+        website_url: process.env.WEBSITE_URL,
         amount: totalPrice * 100, //Convert into paisa
         purchase_order_id: order._id.toString(),
         purchase_order_name: "TinyTreasure Order",

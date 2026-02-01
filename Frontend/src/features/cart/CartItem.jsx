@@ -22,7 +22,7 @@ function CartItem({ item }) {
             <img
               src={item.image}
               alt={item.name}
-              className="h-full w-full rounded-lg object-cover"
+              className="h-full w-full rounded-lg bg-white object-contain"
             />
           </div>
           <div className="flex-1">

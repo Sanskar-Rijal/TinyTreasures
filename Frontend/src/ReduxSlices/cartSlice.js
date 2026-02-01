@@ -52,7 +52,14 @@ function calculateTotalPrice(state) {
   state.totalPrice = total;
   state.tax = (state.totalPrice * 0.13).toFixed(2);
   state.subTotal = (state.totalPrice - state.tax).toFixed(2);
-  state.shippingPrice = state.totalPrice > 1500 ? 0 : 120;
+  
+  // Set shipping price: free above 1500, 120 otherwise, 0 if cart is empty
+  if (state.totalPrice === 0) {
+    state.shippingPrice = 0;
+  } else {
+    state.shippingPrice = state.totalPrice > 1500 ? 0 : 120;
+  }
+
   state.totalPrice += state.shippingPrice; //Add shipping Price to total Price
 }
 

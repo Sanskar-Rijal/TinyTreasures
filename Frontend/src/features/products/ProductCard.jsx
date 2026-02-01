@@ -6,6 +6,7 @@ import Badge from "../../ui/Badge";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../ReduxSlices/cartSlice";
 import { addToWish, removeFromWish } from "../../ReduxSlices/wishSlice";
+import toast from "react-hot-toast";
 
 function ProductCard({ product }) {
   let [iswishlisted, setWishListed] = useState(false);
@@ -32,6 +33,7 @@ function ProductCard({ product }) {
     };
     event.preventDefault();
     event.stopPropagation();
+    toast.success(`Added to cart successfully!`);
     dispatch(addToCart(productItem));
   }
 
