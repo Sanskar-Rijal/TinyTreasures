@@ -13,7 +13,7 @@ class Email {
     this.to = user.email;
     this.firstName = user.name.split(" ")[0];
     this.url = url;
-    this.from = `Online-Store <${process.env.GMAIL_USER}>`;
+    this.from = `Tiny-Treasures <${process.env.GMAIL_USER}>`;
   }
 
   onCreateTransport() {
@@ -54,7 +54,7 @@ class Email {
   async sendPasswordReset() {
     await this.send(
       "passwordReset",
-      "Your password reset token, valid only for 10 minutes"
+      "Your password reset token, valid only for 10 minutes",
     );
   }
 }
