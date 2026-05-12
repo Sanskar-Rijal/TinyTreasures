@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom";
 import Header from "../ui/Header";
 import Footer from "../ui/Footer";
 import ScrollToTop from "../ui/ScrollToTop";
+import ChatBot from "../features/ChatBot/ChatBot";
 
 function AppLayout() {
   return (
@@ -12,6 +13,7 @@ function AppLayout() {
         <Outlet />
       </main>
       <Footer />
+      <ChatBot />
     </div>
   );
 }
