@@ -17,20 +17,46 @@ function CustomPagination({ totalProducts, limit }) {
   }
   return (
     <div className="mb-8">
-      <ReactPaginate
-        previousLabel={"Prev"}
-        nextLabel={"Next"}
-        pageCount={totalPages}
-        forcePage={page - 1}
-        onPageChange={handlePageClick}
-        containerClassName="flex justify-center gap-2 mt-4"
-        pageClassName=""
-        pageLinkClassName="px-4 py-2 border rounded cursor-pointer hover:bg-purple-200  hover:border-purple-500"
-        activeLinkClassName="bg-purple-600 text-white border-purple-600 hover:bg-purple-600"
-        previousLinkClassName="px-4 py-2 border rounded  hover:bg-purple-200  hover:border-purple-500"
-        nextLinkClassName="px-4 py-2 border rounded  hover:bg-purple-200  hover:border-purple-500"
-        disabledLinkClassName="opacity-50 cursor-not-allowed text-gray-500 hover:bg-white"
-      />
+      {/* For mobile  */}
+      <div className="block sm:hidden">
+        <ReactPaginate
+          previousLabel={"Prev"}
+          nextLabel={"Next"}
+          pageCount={totalPages}
+          forcePage={page - 1}
+          breakLabel={"..."}
+          onPageChange={handlePageClick}
+          pageRangeDisplayed={2}
+          marginPagesDisplayed={0}
+          containerClassName="flex justify-center gap-2 mt-4"
+          pageClassName=""
+          pageLinkClassName="px-4 py-2 border rounded cursor-pointer hover:bg-purple-200  hover:border-purple-500"
+          activeLinkClassName="bg-purple-600 text-white border-purple-600 hover:bg-purple-600"
+          previousLinkClassName="px-4 py-2 border rounded  hover:bg-purple-200  hover:border-purple-500"
+          nextLinkClassName="px-4 py-2 border rounded  hover:bg-purple-200  hover:border-purple-500"
+          disabledLinkClassName="opacity-50 cursor-not-allowed text-gray-500 hover:bg-white"
+        />
+      </div>
+      {/* for laptop and desktop  */}
+      <div className="hidden sm:block">
+        <ReactPaginate
+          previousLabel={"Prev"}
+          nextLabel={"Next"}
+          pageCount={totalPages}
+          forcePage={page - 1}
+          breakLabel={"..."}
+          onPageChange={handlePageClick}
+          pageRangeDisplayed={3}
+          marginPagesDisplayed={1}
+          containerClassName="flex justify-center gap-2 mt-4"
+          pageClassName=""
+          pageLinkClassName="px-4 py-2 border rounded cursor-pointer hover:bg-purple-200  hover:border-purple-500"
+          activeLinkClassName="bg-purple-600 text-white border-purple-600 hover:bg-purple-600"
+          previousLinkClassName="px-4 py-2 border rounded  hover:bg-purple-200  hover:border-purple-500"
+          nextLinkClassName="px-4 py-2 border rounded  hover:bg-purple-200  hover:border-purple-500"
+          disabledLinkClassName="opacity-50 cursor-not-allowed text-gray-500 hover:bg-white"
+        />
+      </div>
     </div>
   );
 }
