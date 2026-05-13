@@ -9,6 +9,7 @@ import userRouter from "./Routes/userRoute.js";
 import orderRouter from "./Routes/orderRoute.js";
 import reviewRouter from "./Routes/reviewRoute.js";
 import paymentRouter from "./Routes/paymentRoute.js";
+import chatRouter from "./Routes/chatRoute.js";
 
 const app = express();
 app.use(express.json());
@@ -61,6 +62,7 @@ app.use("/api/v1/users", userRouter);
 app.use("/api/v1/orders", orderRouter);
 app.use("/api/v1/reviews", reviewRouter);
 app.use("/api/v1/payments", paymentRouter);
+app.use("/api/v1/chat", chatRouter);
 
 //if No route matches, catch all undefined routes (404 handler)
 app.use((req, res, next) => {
