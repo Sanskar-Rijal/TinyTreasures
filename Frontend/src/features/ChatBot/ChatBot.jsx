@@ -1,11 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 import OpenButton from "./OpenButton";
 import { FaCross } from "react-icons/fa";
-import { HiXMark } from "react-icons/hi2";
-import { PiRobotDuotone } from "react-icons/pi";
+import { LuSend } from "react-icons/lu";
+import ChatHeader from "./ChatHeader";
+import MessageBody from "./MessageBody";
+import Button from "../../ui/Button";
+import InputSend from "./InputSend";
 
 function ChatBot() {
   const [isOpen, setIsOpen] = useState(false);
+  const [inputValue, setInputValue] = useState("");
 
   function handleOpen() {
     setIsOpen((prev) => !prev);
@@ -14,8 +18,14 @@ function ChatBot() {
   const [message] = useState([
     {
       id: "1",
-      text: "Hi! I'm your PurpleShop AI assistant. How can I help you today?",
+      text: "Hi! I'm TinyTreasure AI assistant. How can I help you today?",
       isAi: true,
+      timeStamp: new Date(),
+    },
+    {
+      id: "2",
+      text: "Hi! I have a question about one of the products.",
+      isAi: false,
       timeStamp: new Date(),
     },
   ]);
@@ -32,6 +42,16 @@ function ChatBot() {
     scrollToBottom();
   }, [message]);
 
+  function handleKeyPress(e) {
+    if (e.key === "Enter" && !e.shiftKey) {
+      // Handle send message logic here
+      e.preventDefault();
+    }
+  }
+  function onChange(event) {
+    setInputValue(event.target.value);
+  }
+
   return (
     <>
       <OpenButton isOpen={isOpen} handleOpen={handleOpen} />
@@ -42,30 +62,19 @@ function ChatBot() {
         }`}
         style={{ transformOrigin: `bottom-right` }}
       >
-        <div className="flex h-[600px] w-[380px] flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-2xl">
-          <div className="flex items-center justify-between bg-gradient-to-r from-purple-600 to-purple-700 p-4">
-            <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white">
-                <PiRobotDuotone className="h-6 w-6 text-purple-600" />
-              </div>
-              <div>
-                <h3 className="font-semibold text-white">
-                  TinyTreasure Assistant
-                </h3>
-                <div className="flex items-center gap-1">
-                  <div className="h-2 w-2 animate-pulse rounded-full bg-green-400"></div>
-                  <span className="text-xs text-purple-100">Online</span>
-                </div>
-              </div>
-            </div>
-            <button
-              onClick={handleOpen}
-              className="rounded-full p-2 text-white transition-colors hover:bg-purple-700"
-              aria-label="Close chat"
-            >
-              <HiXMark className="h-5 w-5" />
-            </button>
+        <div className="flex h-130 w-76 flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-2xl sm:h-[600px] sm:w-[380px]">
+          {/* header  */}
+          <ChatHeader handleOpen={handleOpen} />
+          {/* message body  */}
+          <div className="flex-1 space-y-7 overflow-y-auto bg-gray-50 p-4">
+            <MessageBody message={message} />
           </div>
+          {/* now we will add input field and send button  */}
+          <InputSend
+            inputValue={inputValue}
+            handleKeyPress={handleKeyPress}
+            onChange={onChange}
+          />
         </div>
       </div>
     </>

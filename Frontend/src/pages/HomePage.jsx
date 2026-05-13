@@ -12,12 +12,12 @@ function HomePage() {
   const categories = [
     "All",
     "Electronics",
-    "Food",
+    // "Food",
     "Books",
     "Clothes/Shoes",
     "Beauty/Health",
-    "Sports",
-    "Home",
+    // "Sports",
+    // "Home",
   ];
 
   //handle click on category
