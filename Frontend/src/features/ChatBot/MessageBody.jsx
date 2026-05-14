@@ -1,8 +1,11 @@
 import { FaRegUserCircle } from "react-icons/fa";
+import { useSelector } from "react-redux";
 import { formatTime } from "../../utils/Helpers";
 import { PiRobotDuotone } from "react-icons/pi";
 
 function MessageBody({ message }) {
+  //getting userdetails from redux
+  const user = useSelector((state) => state.user.user);
   return message.map((msg) => (
     <div
       key={msg.id}
@@ -27,9 +30,25 @@ function MessageBody({ message }) {
       </div>
       <div>
         {!msg.isAi && (
-          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gray-300">
-            <FaRegUserCircle className="h-5 w-5 text-gray-700" />
-          </div>
+          <>
+            {/* Display user profile is logged in  */}
+            {user ? (
+              <div>
+                <div className="h-8 w-8 overflow-hidden rounded-full">
+                  <img
+                    src={user.avatar.url}
+                    alt="Profile"
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+              </div>
+            ) : (
+              // show normal profile icon
+              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gray-300">
+                <FaRegUserCircle className="h-5 w-5 text-gray-700" />
+              </div>
+            )}
+          </>
         )}
       </div>
     </div>

@@ -14,6 +14,7 @@ export const ADD_NEW_REVIEW = "reviews/createReview";
 export const INITIATE_PAYMENT = "payments/khalti/initiate";
 export const VERIFY_PAYMENT = "payments/khalti/verify";
 export const My_ORDERS = "orders/myOrders";
+export const ASK_QUESTION = "chat/ask";
 
 export const EMAIL = "experimentmail777@gmail.com";
 export const PHONENO = "9800000003";

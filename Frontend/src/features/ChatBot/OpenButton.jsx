@@ -11,7 +11,7 @@ function OpenButton({ isOpen, handleOpen }) {
       <div className="absolute -inset-1 animate-pulse rounded-full bg-purple-600 opacity-75 group-hover:opacity-100"></div>
 
       {/* chat button */}
-      <div className="relative flex h-10 w-10 items-center justify-center rounded-full bg-purple-600 shadow-lg transition-all duration-300 group-hover:scale-110 hover:bg-purple-700 sm:h-14 sm:w-14">
+      <div className="relative flex h-12 w-12 items-center justify-center rounded-full bg-purple-600 shadow-lg transition-all duration-300 group-hover:scale-110 hover:bg-purple-700 sm:h-14 sm:w-14">
         <FiMessageCircle className="h-5 w-5 text-white sm:h-6 sm:w-6" />
       </div>
       {/* Tooltip */}
