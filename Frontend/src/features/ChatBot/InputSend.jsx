@@ -7,11 +7,13 @@ function InputSend({
   onChange,
   isLoading,
   onSend,
+  inputRef,
 }) {
   return (
     <>
       <div className="flex gap-2 border-t border-gray-200 bg-white p-4">
         <input
+          ref={inputRef}
           disabled={isLoading}
           value={inputValue}
           onKeyPress={handleKeyPress}

@@ -24,6 +24,25 @@ function ChatBot() {
   //from useChat hook
   const { sendMessage, isLoading } = useChat();
 
+  //when new messages are addded we have to scroll to the bottom of the chat window
+  const messageEndRef = useRef(null);
+  const scrollToBottom = () => {
+    messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+  //ref to focus on input field
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [message]);
+
+  // Focus input field after sending message (after state updates)
+  useEffect(() => {
+    if (!isLoading) {
+      inputRef.current?.focus();
+    }
+  }, [isLoading]);
+
   function handleOpen() {
     setIsOpen((prev) => !prev);
   }
@@ -59,15 +78,6 @@ function ChatBot() {
       },
     });
   }
-  //when new messages are addded we have to scroll to the bottom of the chat window
-  const messageEndRef = useRef(null);
-  const scrollToBottom = () => {
-    messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  useEffect(() => {
-    scrollToBottom();
-  }, [message]);
 
   function handleKeyPress(e) {
     if (e.key === "Enter" && !e.shiftKey) {
@@ -95,16 +105,20 @@ function ChatBot() {
           {/* header  */}
           <ChatHeader handleOpen={handleOpen} />
           {/* message body  */}
-          <div className="flex-1 overflow-y-auto bg-gray-50">
-            <div className="space-y-7 p-4">
-              <MessageBody message={message} />
+          <div className="flex flex-1 flex-col overflow-hidden bg-gray-50">
+            <div className="flex-1 overflow-y-auto">
+              <div className="space-y-7 p-4">
+                <MessageBody message={message} />
+              </div>
               <div ref={messageEndRef} /> {/* scroll anchor */}
             </div>
-            {/* typing indicator while waiting for April */}
+            {/* typing indicator at bottom - inside message body but above input */}
             {isLoading && (
-              <div className="flex items-end gap-1 px-2 py-1 text-sm text-gray-400">
-                <span>April is typing</span>
-                <span className="animate-bounce">...</span>
+              <div className="px-4 py-3">
+                <div className="flex items-end gap-1 text-sm text-gray-400">
+                  <span>April is typing</span>
+                  <span className="animate-bounce">...</span>
+                </div>
               </div>
             )}
           </div>
@@ -115,6 +129,7 @@ function ChatBot() {
             onChange={onChange}
             isLoading={isLoading}
             onSend={onSend}
+            inputRef={inputRef}
           />
         </div>
       </div>
