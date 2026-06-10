@@ -248,78 +248,49 @@ Stop containers:
 docker compose down
 ```
 
----
+## 📸 Screenshots
 
-## 📁 Project Structure
+Below are UI previews of TinyTreasure displayed in a clean 2‑column grid.
 
-```
-Projects/
-├── Backend/
-│   ├── config/
-│   │   └── env.js              # Environment configuration
-│   ├── Controller/
-│   │   ├── authController.js
-│   │   ├── chatController.js
-│   │   ├── orderController.js
-│   │   ├── paymentController.js
-│   │   ├── productController.js
-│   │   ├── reviewController.js
-│   │   └── userController.js
-│   ├── Models/
-│   │   ├── user.js
-│   │   ├── product.js
-│   │   ├── order.js
-│   │   └── review.js
-│   ├── Routes/
-│   │   ├── authRoute.js
-│   │   ├── chatRoute.js
-│   │   ├── orderRoute.js
-│   │   ├── paymentRoute.js
-│   │   ├── productRoute.js
-│   │   ├── reviewRoute.js
-│   │   └── userRoute.js
-│   ├── Templates/
-│   │   ├── baseEmail.pug
-│   │   ├── passwordReset.pug
-│   │   └── welcomeEmail.pug
-│   ├── utils/
-│   │   ├── apiFeatures.js      # Filtering, sorting, pagination
-│   │   ├── appError.js         # Custom error handler
-│   │   ├── catchAsync.js       # Async error wrapper
-│   │   ├── cloudinary.js       # Image upload utility
-│   │   ├── email.js            # Email service
-│   │   └── RagDb.js            # RAG database for AI
-│   ├── seed/
-│   │   ├── product.json        # Sample product data
-│   │   └── seed.js             # Database seeding script
-│   ├── app.js                  # Express app setup
-│   ├── server.js               # Server entry point
-│   ├── config.env              # Environment variables (CREATE THIS)
-│   ├── package.json
-│   └── Dockerfile
-│
-├── Frontend/
-│   ├── src/
-│   │   ├── features/
-│   │   │   ├── ChatBot/        # AI chat interface
-│   │   │   ├── cart/           # Shopping cart
-│   │   │   ├── products/       # Product listing & filters
-│   │   │   ├── Profile/        # User profile
-│   │   │   ├── Order/          # Order management
-│   │   │   └── ...
-│   │   ├── hooks/              # Custom React hooks
-│   │   ├── services/           # API calls
-│   │   ├── ReduxSlices/        # Redux state
-│   │   ├── pages/              # Page components
-│   │   ├── ui/                 # Reusable UI components
-│   │   ├── App.jsx
-│   │   ├── main.jsx
-│   │   └── store.js            # Redux store
-│   ├── package.json
-│   ├── vite.config.js
-│   └── Dockerfile
-│
-├── docker-compose.yaml         # Development setup
-├── docker-compose.prod.yaml    # Production setup
-└── README.md
-```
+<table>
+  <tr>
+    <td><img src="https://imgur.com/0RbagMF.png" width="100%"></td>
+    <td><img src="https://imgur.com/37GTqk6.png" width="100%"></td>
+  </tr>
+  <tr>
+    <td><img src="https://imgur.com/d2UYDvW.png" width="100%"></td>
+    <td><img src="https://imgur.com/J2KFB70.png" width="100%"></td>
+  </tr>
+  <tr>
+    <td><img src="https://imgur.com/i7KRefR.png" width="100%"></td>
+    <td><img src="https://imgur.com/k5ICRDd.png" width="100%"></td>
+  </tr>
+  <tr>
+    <td><img src="https://imgur.com/qGxFTS8.png" width="100%"></td>
+    <td><img src="https://imgur.com/UTPZONe.png" width="100%"></td>
+  </tr>
+  <tr>
+    <td><img src="https://imgur.com/Yza0vVD.png" width="100%"></td>
+    <td><img src="https://imgur.com/JlClzmS.png" width="100%"></td>
+  </tr>
+  <tr>
+    <td><img src="https://imgur.com/KThMKc6.png" width="100%"></td>
+    <td><img src="https://imgur.com/tZGSe6z.png" width="100%"></td>
+  </tr>
+  <tr>
+    <td><img src="https://imgur.com/7wodKKF.png" width="100%"></td>
+    <td><img src="https://imgur.com/mWHLeV1.png" width="100%"></td>
+  </tr>
+  <tr>
+    <td><img src="https://imgur.com/GEl9ggb.png" width="100%"></td>
+    <td><img src="https://imgur.com/bEqg8VH.png" width="100%"></td>
+  </tr>
+  <tr>
+    <td><img src="https://imgur.com/MS3CYY4.png" width="100%"></td>
+    <td><img src="https://imgur.com/5dfOTbm.png" width="100%"></td>
+  </tr>
+  <tr>
+    <td><img src="https://imgur.com/sFFLaWt.png" width="100%"></td>
+  </tr>
+</table>
+
