@@ -1,4 +1,4 @@
-export const STORE_NAME = "TinyTreasures";
+export const STORE_NAME = "TinyTreasure";
 //export const BASE_URL = "http://localhost:3000/api/v1/"; //development
 //production
 export const BASE_URL = "/api/v1/";
