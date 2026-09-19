@@ -13,13 +13,11 @@ class APIFeatures {
     const escapeRegex = (str) =>
       str.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 
-    const keywordRegex = escapeRegex(keyword);
-
     const fields = keyword
       ? {
           $or: [
-            { name: { $regex: keywordRegex, $options: "i" } },
-            { category: { $regex: keywordRegex, $options: "i" } },
+            { name: { $regex: escapeRegex(keyword), $options: "i" } },
+            { category: { $regex: escapeRegex(keyword), $options: "i" } },
           ],
         }
       : {};
