@@ -1,0 +1,47 @@
+name: CI/CD
+
+on: 
+    push:
+        branches: [main]
+
+concurrency:
+    group: deploy 
+    cancel-in-progress: false
+
+jobs: 
+    ci: 
+        runs-on: ubuntu-latest
+        steps: 
+            - uses: actions/checkout@v4
+
+            - uses: actions/setup-node@v4
+              with:
+                node-version: 20
+                
+            - name: Backend install
+              working-directory: Backend
+              run: npm ci
+
+            - name: Frontend install and build
+              working-directory: Frontend
+              run: |
+                npm ci 
+                npm run build
+    
+    deploy: 
+        needs: ci
+        runs-on: ubuntu-latest
+        steps: 
+            - name: Deploy over SSH
+              uses: appleboy/ssh-action@v1.0.3
+              with:
+                host: ${{ secrets.VM_HOST }}
+                username: ${{ secrets.VM_USER }}
+                key: ${{ secrets.VM_SSH_KEY }}
+                script: |
+                    set -e
+                    cd ~/apps/tinytreasures/TinyTreasures
+                    git fetch origin main
+                    git reset --hard origin/main
+                    docker compose -f docker-compose.prod.yaml up -d --build
+                    docker image prune -f

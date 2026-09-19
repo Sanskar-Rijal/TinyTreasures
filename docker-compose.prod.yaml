@@ -4,9 +4,10 @@ services:
       context: ./Backend
       dockerfile: Dockerfile.prod
     ports:
-      - "3000:3000"
+      - "127.0.0.1:3000:3000"
     env_file:
       - ./Backend/config.env
+    restart: unless-stopped
 
   frontend:
     build:
@@ -14,5 +15,6 @@ services:
       dockerfile: Dockerfile.prod
     depends_on:
       - backend
-    ports: 
-      - "8080:80"
+    ports:
+      - "127.0.0.1:8080:80"
+    restart: unless-stopped

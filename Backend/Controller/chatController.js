@@ -86,7 +86,7 @@ const askQuestion = catchAsync(async (req, res, next) => {
     //4)Send to our LLM to get the answer
 
     const chatResponse = await groq.chat.completions.create({
-      model: "llama-3.3-70b-versatile",
+      model: "openai/gpt-oss-120b",
       messages: [
         {
           role: "system",
