@@ -1,11 +1,13 @@
 name: CI/CD
 
 on: 
+    pull_request:
+        branches: [main]
     push:
         branches: [main]
 
 concurrency:
-    group: deploy 
+    group: ${{ github.workflow }}-${{ github.ref }} 
     cancel-in-progress: false
 
 jobs: 
@@ -30,6 +32,7 @@ jobs:
     
     deploy: 
         needs: ci
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         runs-on: ubuntu-latest
         steps: 
             - name: Deploy over SSH
