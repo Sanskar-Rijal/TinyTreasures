@@ -53,7 +53,7 @@ const getSingleOrder = catchAsync(async (req, res, next) => {
 //get all orders of loggedin  user
 const getmyOrder = catchAsync(async (req, res, next) => {
   const userId = req.user.id;
-  const orders = await Order.find({ user: userId });
+  const orders = await Order.find({ user: userId }).sort({ createdAt: -1 });
   res.status(200).json({
     success: "true",
     message: orders,
